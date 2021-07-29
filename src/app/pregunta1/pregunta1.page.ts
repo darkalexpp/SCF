@@ -11,7 +11,7 @@ export class Pregunta1Page implements OnInit {
   arreglo_recursos : recurso [];
   nimg=12;
 
-  ra= ['barco','cangrejo','caramelo','conejo','escalera','escoba','lokidrilo','murcielago','oso','pera','sandalia','telefono'];
+  ra= ['barco','cangrejo','caramelo','conejo','escalera','escoba','cocodrilo','murcielago','oso','pera','sandalia','telefono'];
 
   arreglo_preguntas = [];
 
