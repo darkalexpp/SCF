@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import {recurso} from 'src/app/clases/recurso';
-import { SQLite, SQLiteObject } from '@ionic-native/sqlite/ngx';
 
 @Component({
   selector: 'app-pregunta1',
