@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {recurso} from 'src/app/clases/recurso';
+import { actividad } from 'src/app/clases/actividad';
+import { SpeechRecognition } from '@ionic-native/speech-recognition/ngx';
 
 @Component({
   selector: 'app-pregunta2',
@@ -13,7 +15,7 @@ export class Pregunta2Page implements OnInit {
   public enabledM = true;
   nimg=12;
 
-  ra= ['barco','cangrejo','caramelo','conejo','escalera','escoba','lokidrilo','murcielago','oso','pera','sandalia','telefono','carro','dado','fresa'];
+  ra= ['barco','cangrejo','caramelo','conejo','escalera','escoba','cocodrilo','murcielago','oso','pera','sandalia','telefono','carro','dado','fresa'];
 
   arreglo_preguntas = [];
 
@@ -26,19 +28,21 @@ export class Pregunta2Page implements OnInit {
   numPreg: number = -1;
 
   source="";
+  act = new actividad(this.ra,5,3);
+  recVoz
 
-  constructor() { }
+  constructor(private speechRec: SpeechRecognition) { }
 
   ngOnInit() {
   
-      this.arreglo_recursos = this.crearRecursos();
+      //this.arreglo_recursos = this.crearRecursos();
       
-      this.moverArregloInicial();
-      this.crearPreguntas();
+      //this.moverArregloInicial();
+      //this.crearPreguntas();
 
 
-    this.arregloResp = this.respRandom(4);
-    this.siguiente();
+    //this.arregloResp = this.respRandom(4);
+    this.imagenes = this.act.siguiente();
 
 
   }
@@ -47,9 +51,10 @@ export class Pregunta2Page implements OnInit {
     cardClick(ev){ //Evento de click que carga la imagen principal
     
     var target = ev.srcElement;
+    
     var srcAttr = target.attributes.src;
    
-    
+    //console.log("target: "+ srcAttr.nodeValue);
     var value:string = srcAttr.nodeValue;
 
     
@@ -71,17 +76,22 @@ export class Pregunta2Page implements OnInit {
   }
   clickmic(ev){ //Evento de click en mic
 
-alert("aun no le hago :v");
-this.enabledM = false;
-this.enabledI = true;
+    //alert("aun no le hago :v");
+    //this.enabledM = false;
+    //this.enabledI = true;
+    this.skip();    
+    
+
+
   }
 
   clickOrden(ev){
+    //this.enabledI = true;
     let audio = new Audio('assets/audio/short-circuit.mp3');
     audio.load();
     audio.play();
   }
-
+/*
   moverArregloInicial() {//Randomiza las posiciones del arreglo de recursos
   
     this.arreglo_recursos = this.arreglo_recursos.sort(() => Math.random() - 0.5);
@@ -173,7 +183,45 @@ this.enabledI = true;
         arr.push(this.arreglo_preguntas[n][i].dirImagen);
       }
       return arr;
-    }
+    }*/
+
+    comprobarRespuesta(id) //comprueba la respuesta correcta
+    {
+
+      
+      if(id==this.act.obtenerRespuestaCorrecta())
+      {
+        
+        alert("Buena pelado coco");
+        this.enabledI = true;
+        this.siguientePregunta();
+        
+      }
+      else{
+        alert("vales vrg guambra")
+      }
+    }    
+
+    siguientePregunta() //cambia a la nueva pregunta
+    {
+ 
+        this.source="";
+        this.enabledI = false;
+        this.enabledM = true;
+        
+        //console.log(this.arreglo_preguntas[this.numPreg][this.arregloResp[this.numPreg]].audioLetras);        
+
+        this.imagenes = this.act.siguiente();
+
+
+      
+    }    
+
+    skip(){
+          this.enabledM = false;
+          this.enabledI = true;
+    }    
+
 }
 
 

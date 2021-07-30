@@ -14,7 +14,7 @@
         </ion-button>
       </ion-col>
       <ion-col size="2">
-        <ion-button (click)="siguiente()" expand="block" fill="clear" shape="round">
+        <ion-button (click)="siguientePregunta()" expand="block" fill="clear" shape="round">
           Siguiente
         </ion-button>
       </ion-col>
@@ -33,18 +33,23 @@
         </ion-row>
 
         <ion-row *ngIf="enabledM">
-          <ion-col size="4"></ion-col>
-          <ion-col size="4">
+          <ion-col size="1"></ion-col>
+          <ion-col size="10">
             <ion-button (click)="clickmic()" expand="block" fill="clear" shape="round">
               <ion-icon size="large" name="mic"></ion-icon>
             </ion-button>
           </ion-col>
+          <ion-col size="1">
+          <ion-button (click)="skip()" expand="block" fill="clear"   shape="round">
+            Saltar
+            </ion-button>
+            </ion-col>                
         </ion-row>
         
         <ion-row *ngIf="enabledI">
           <ion-col size="4" *ngFor="let imagen of imagenes;let i = index">
             <ion-card button (click)="cardClick($event)" id ="card{{i}}" >
-              <img id="img{{i}}" src="{{imagen}}" >
+              <img class="image--size" id="img{{i}}" src="{{imagen}}" >
             </ion-card>
           </ion-col>
         </ion-row>
