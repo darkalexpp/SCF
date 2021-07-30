@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import {recurso} from 'src/app/clases/recurso';
+import { TextToSpeech } from '@ionic-native/text-to-speech/ngx';
+import { vozTexto } from 'src/app/clases/vozTexto';
+import { actividad } from 'src/app/clases/actividad';
 
 @Component({
   selector: 'app-pregunta1',
@@ -8,35 +10,45 @@ import {recurso} from 'src/app/clases/recurso';
 })
 export class Pregunta1Page implements OnInit {
 
-  arreglo_recursos : recurso [];
-  nimg=12;
-
-  ra= ['barco','cangrejo','caramelo','conejo','escalera','escoba','cocodrilo','murcielago','oso','pera','sandalia','telefono'];
-
-  arreglo_preguntas = [];
+    constructor(private tts: TextToSpeech) { }
+/*
+  arreglo_informacion =
+  [
+    ['casa','https://image.freepik.com/vector-gratis/casa-dos-pisos_1308-16176.jpg','diraud1','diraud2','diraud3'],
+    ['perro','https://www.freude-kinder.com/wp-content/uploads/2020/06/7-1.jpg','diraud1','diraud2','diraud3'],
+    ['gato','https://hispanicla.com/wp-content/uploads/2010/09/Pinochet.jpg','diraud1','diraud2','diraud3'],
+    ['auto','https://static01.nyt.com/newsgraphics/2019/08/01/candidate-pages/7d63f01f112e79da7ac60c0448a4047a155ff410/trump.jpg','diraud1','diraud2','diraud3'],
+    ['carro','https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRaYDXhC8h4rm4DuCZ8K1CjAluWxqJwMZgRZQ&usqp=CAU','diraud1','diraud2','diraud3'],
+    ['moto','https://i.ytimg.com/vi/rXQzsQj9noQ/maxresdefault.jpg','diraud1','diraud2','diraud3'],
+    ['sonido','https://estaticos.serpadres.es/media/cache/1140x_thumb/uploads/images/article/5fae74835bafe827219e8ace/series_0.jpg','diraud1','diraud2','diraud3'],
+    ['ave','https://www.eltiempo.com/files/article_multimedia/uploads/2018/02/16/5a87aa2aab054.jpeg','diraud1','diraud2','diraud3'],
+    ['avion','https://decine21.com/media/com_decine21/listas/100074/54d51d075bb59603857103d1c1dc1978-780.jpg','diraud1','diraud2','diraud3'],
+    ['espacio','https://www.pocoyo.com/img/Categorias/Adivinanzas/2018/01/thumb-adivinanzas-dificiles.jpg','diraud1','diraud2','diraud3'],
+    ['lugar','https://files.adventistas.org/noticias/es/2019/07/26110751/livros-de-ellen-white-inspiram-serie-animada-para-criancas.jpg','diraud1','diraud2','diraud3'],
+    ['comida','https://s1.eestatic.com/2021/05/06/imprescindibles/579204207_184285862_1024x576.jpg','diraud1','diraud2','diraud3']
+  ];*/
+  arreglo_informacion= ['barco','cangrejo','caramelo','conejo','escalera','escoba','cocodrilo','murcielago','oso','pera','sandalia','telefono'];
+  
 
 
   imagenes: string [];
   
 
-  arregloResp: number [];
+  
 
-  numPreg: number = -1;
+  
 
   source="";
 
-  constructor() { }
+  txtsp = new vozTexto(this.tts,'','es-EC',0.60);
+
+  act = new actividad(this.arreglo_informacion,4,3);
+
 
   ngOnInit() {
   
-      this.arreglo_recursos = this.crearRecursos();
-      
-      this.moverArregloInicial();
-      this.crearPreguntas();
-
-
-    this.arregloResp = this.respRandom(4);
-    this.siguiente();
+    
+    this.imagenes = this.act.siguiente();
 
   }
 
@@ -65,67 +77,18 @@ export class Pregunta1Page implements OnInit {
     
   }
 
-  moverArregloInicial()//Randomiza las posiciones del arreglo de recursos
-  {
-    for(let i=0;i<15;i++)
+
+
+
+
+    siguientePregunta() //cambia a la nueva pregunta
     {
-      let n1: number = Math.floor(Math.random() * 12);//en vez de 12 tu pondras 15 guambra
-      let n2 = Math.floor(Math.random() * 12);
-      while(n1===n2)
-      {
-        n2 = Math.floor(Math.random() * 12);
-      }
+ 
+        this.source="";
 
-      let aux = this.arreglo_recursos[n1];
-
-      this.arreglo_recursos[n1]=this.arreglo_recursos[n2];
-      this.arreglo_recursos[n2]=aux;
-      
-
-    }
-
-  }
-
-  asignarArreglos(ini,fin)//Funcion que genera un arreglo con los recursos para la pregunta
-  {
-    var arr = [];
-    for(let i=ini;i<fin;i++)
-    {
-      arr.push(this.arreglo_recursos[i]);
-      
-    }
-
-    return arr;
-  }
-
-  respRandom(n: number) // genera las respuestas correctas al azar de la pregunta
-  {
-    var arr = [];
-    for(let i=0;i<n;i++)
-    {
-      let n1: number = Math.floor(Math.random() * 3); 
-      arr.push(n1);
+        this.imagenes = this.act.siguiente();
 
 
-    }
-    console.log("Respuestas:"+arr);
-    return arr;
-  }
-
-    siguiente() //cambia a la nueva pregunta
-    {
-      this.numPreg++;
-      this.source="";
-      if(this.numPreg<this.arregloResp.length)
-      {
-        this.imagenes = this.obtenerImagenesPregunta(this.numPreg);
-        
-      }
-      else
-      {
-        this.numPreg=0;
-        this.imagenes = this.obtenerImagenesPregunta(this.numPreg);
-      }
       
     }
 
@@ -133,65 +96,33 @@ export class Pregunta1Page implements OnInit {
     {
 
       
-      if(id==this.arregloResp[this.numPreg])
+      if(id==this.act.obtenerRespuestaCorrecta())
       {
         alert("Buena pelado coco");
-        this.siguiente()
+        this.txtsp.texto = "Buena pelado coco";
+        this.txtsp.sonido();
+        this.siguientePregunta()
       }
       else{
-        alert("vales vrg guambra")
+        
+        alert("vales vrg guambra");
+        this.txtsp.texto = "vales vrg guambra";
+        this.txtsp.sonido();
         let audio = new Audio('assets/audio/short-circuit.mp3');
         audio.load();
         audio.play();
       }
     }
-    //-------------------------------------------------------------------------------------
+ 
 
-    crearRecursos() //convierte el arreglo de ifnormacion en un arreglo de recursos
+    sonidoPregunta()
     {
-      var arr = [];
-      for(let i =0;i< this.ra.length;i++)
-      {
-        var r = new recurso;
-        r.nombre = this.ra[i];
-        r.dirImagen = '/assets/img/'+this.ra[i]+'.jpg';
-        r.audioPalabra = '/assets/aupalabra/'+this.ra[i]+'.jpg';
-        r.audioSilabas = '/assets/ausilaba/'+this.ra[i]+'.jpg';
-        r.audioLetras = '/assets/auletra/'+this.ra[i]+'.jpg';
 
-        arr.push(r);
-      }
-
-      
-      return arr;
+      var text = this.act.obtenerTextoPregunta();
+      this.txtsp.texto = text; 
+      this.txtsp.sonido();
     }
-
-
-    crearPreguntas() //Inserta en el arreglo bidimensional las preguntas por grupo 
-    {
-      var pr = this.nimg/4;
-      var matrix = [];
-      for(let i =0; i<this.nimg;i++ ) {
-
-        var x: recurso [] = this.arreglo_recursos.slice(i,(i+pr));
-
-        this.arreglo_preguntas.push(x);
-        console.log(this.arreglo_preguntas);
-        i=i+pr-1;
-      } 
-    }
-
-    obtenerImagenesPregunta(n: number) // genera un arreglo de strings que va a ser las fuentes para las 3 imagenes de la pregunta
-    {
-      
-      var arr = [];
-      for(let i=0;i<this.arreglo_preguntas[n].length;i++)
-      {
-        arr.push(this.arreglo_preguntas[n][i].dirImagen);
-       
-      }
-      return arr;
-    }
+    
 }
 
 

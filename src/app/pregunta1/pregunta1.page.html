@@ -7,11 +7,19 @@
 <ion-content>
   <ion-list>
     <ion-item>
-      <ion-col size="9"><ion-label>Pregunta</ion-label></ion-col>
+      <ion-col size="9">
+        <ion-button (click)="sonidoPregunta()">
+          <ion-icon slot="primary" name="volume-high-outline">
+
+          </ion-icon>
+        </ion-button>
+      </ion-col>
       <ion-col size="3">
+        <!--
         <ion-button (click)="siguiente()" expand="block" fill="clear" shape="round">
           Siguiente
         </ion-button>
+        -->
       </ion-col>
     </ion-item>
   
