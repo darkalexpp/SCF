@@ -1,1 +1,5 @@
-ionic build --prod 
+ionic capacitor add android
+ionic build --prod
+cordova-res android --skip-config --copy
+ionic capacitor build android --prod
+
