@@ -169,5 +169,9 @@ export class actividad{
     {
         return this.arreglo_preguntas[this.numPreg][this.arregloResp[this.numPreg]].nombre;
     }
+    obtenerRespAudioLetras()
+    {
+      return this.arreglo_preguntas[this.numPreg][this.obtenerRespuestaCorrecta()].audioLetras;
+    }
 
 }
