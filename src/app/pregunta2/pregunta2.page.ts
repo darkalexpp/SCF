@@ -74,7 +74,7 @@ ngOnInit() {
   this.comprobarRespuesta(id);
   
 }
-clickmic(ev){ //Evento de click en mic
+clickmic(){ //Evento de click en mic
 
   //alert("aun no le hago :v");
   //this.enabledM = false;
@@ -87,7 +87,7 @@ clickmic(ev){ //Evento de click en mic
 
 }
 
-clickOrden(ev){
+clickOrden(){
   //this.enabledI = true;
   let audio = new Audio('assets/audio/short-circuit.mp3');
   audio.load();
