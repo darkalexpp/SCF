@@ -154,3 +154,19 @@
     --ion-card-background: #1e1e1e;
   }
 
+  .image--size{
+    max-height: 150px;
+max-width: 200px;
+width: 120px;
+height: 120px;
+  }
+
+  .alert-wrapper{
+  -webkit-filter: blur(2px);
+  -moz-filter: blur(2px);
+  -o-filter: blur(2px);
+  -ms-filter: blur(2px);
+  filter: blur(2px);
+}
+
+
