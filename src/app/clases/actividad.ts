@@ -86,7 +86,7 @@ export class actividad{
         var x: recurso [] = this.asignarArreglos(i,(i+pr));
 
         this.arreglo_preguntas.push(x);
-        console.log(this.arreglo_preguntas);
+        //console.log(this.arreglo_preguntas);
 
         cont++;
         i=i+pr-1;
@@ -120,7 +120,7 @@ export class actividad{
   
   
       }
-      console.log("Respuestas:"+arr);
+      //console.log("Respuestas:"+arr);
       return arr;
     }    
 
@@ -146,12 +146,12 @@ export class actividad{
 
     obtenerImagenesPregunta(n: number) // genera un arreglo de strings que va a ser las fuentes para las 3 imagenes de la pregunta
     {
-      console.log("ARR PREGUNTAS: "+this.arreglo_preguntas[0][0]);
+      //console.log("ARR PREGUNTAS: "+this.arreglo_preguntas[0][0]);
       var arr = [];
       for(let i=0;i<this.arreglo_preguntas[n].length;i++)
       {
-          console.log("n: "+n);
-          console.log("i :"+i);
+          //console.log("n: "+n);
+          //console.log("i :"+i);
         arr.push(this.arreglo_preguntas[n][i].dirImagen);
        
       }
