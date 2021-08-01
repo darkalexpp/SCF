@@ -1,0 +1,34 @@
+ion-content {
+    ion-col {
+        display: flex;
+    }
+}
+ion-footer {
+    ion-col {
+        display: flex;
+    }
+}
+
+ion-card {
+    img {
+        margin: 0px auto;
+        //height: 25vh !important;
+        //width: auto !important;
+        max-width: 100%;
+        align-items: center;
+        //------
+        //max-height: 150px;
+        //max-width: 200px;
+        width: 150px;
+        height: 150px;        
+    }
+
+    ion-card-content {
+        padding: 0 !important;
+
+        ion-card-title {        
+            padding-top: 1.5rem !important;
+            padding-bottom: 1.5rem !important;
+        }
+    }
+}

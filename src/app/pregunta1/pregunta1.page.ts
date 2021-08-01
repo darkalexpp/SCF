@@ -32,7 +32,7 @@ export class Pregunta1Page implements OnInit {
 
 
   imagenes: string [];
-  
+  enabledM=false;
 
   
 
@@ -48,7 +48,7 @@ export class Pregunta1Page implements OnInit {
   ngOnInit() {
   
     
-    this.imagenes = this.act.siguiente();
+    this.siguientePregunta();
 
   }
 
@@ -64,7 +64,8 @@ export class Pregunta1Page implements OnInit {
     
     this.source=value;//estabelece imagen grande
 
-
+    
+    this.enabledM=true;
 
 
     srcAttr = target.attributes.id;
@@ -85,6 +86,7 @@ export class Pregunta1Page implements OnInit {
     {
  
         this.source="";
+        this.enabledM=false;
 
         this.imagenes = this.act.siguiente();
 

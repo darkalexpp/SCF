@@ -53,8 +53,8 @@
       <ion-grid>  
         <ion-row *ngIf="enabledI">
           <ion-col size="4" *ngFor="let imagen of imagenes;let i = index">
-            <ion-card button (click)="cardClick($event)" id ="card{{i}}" >
-              <img class="image--size" id="img{{i}}" src="{{imagen}}" >
+            <ion-card button (click)="cardClick($event)" id ="card{{i}}" class="animate__animated animate__heartBeat">
+              <img id="img{{i}}" src="{{imagen}}" >
             </ion-card>
           </ion-col>
         </ion-row>
