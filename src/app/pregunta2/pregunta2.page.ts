@@ -49,6 +49,17 @@ clickmic(){ //Evento de click en mic
   this.skip();   
   var txt = this.recVoz.startListening();
   alert("dice: "+txt);
+  alert("coindicencia de: "+this.recVoz.similarity(this.act.obtenerTextoPregunta(),txt))
+  if (this.recVoz.similarity(this.act.obtenerTextoPregunta(),txt) >= 0.5){
+    let audio = new Audio('assets/audio/short-circuit.mp3');
+  audio.load();
+  audio.play();
+    this.siguientePregunta();
+  }else{
+    let audio = new Audio('assets/audio/short-circuit.mp3');
+  audio.load();
+  audio.play();
+  }
 }
 
 clickOrden(){
@@ -64,12 +75,18 @@ clickOrden(){
     {
       
       alert("Muy bien.");
+      let audio = new Audio('assets/audio/short-circuit.mp3');
+  audio.load();
+  audio.play();
       this.enabledI = true;
       this.siguientePregunta();
       
     }
     else{
       alert("Inténtalo de nuevo.")
+      let audio = new Audio('assets/audio/short-circuit.mp3');
+  audio.load();
+  audio.play();
     }
   }    
 

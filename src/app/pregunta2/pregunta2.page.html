@@ -32,12 +32,13 @@
         </ion-row>
 
         <ion-row *ngIf="enabledM">
-          <ion-col size="1"></ion-col>
-          <ion-col size="10">
-            <ion-button (click)="clickmic()" expand="block" fill="clear" shape="round">
-              <ion-icon size="large" name="mic"></ion-icon>
-            </ion-button>
+          <ion-col size="5"></ion-col>
+          <ion-col size="2">
+            <ion-card button (click)="clickmic()" expand="block" fill="clear" shape="round">
+              <img src="/assets/icon/mic.png" >
+            </ion-card>
           </ion-col>
+          <ion-col size="4"></ion-col>
           <ion-col size="1">
           <ion-button (click)="skip()" expand="block" fill="clear"   shape="round">
             Saltar
