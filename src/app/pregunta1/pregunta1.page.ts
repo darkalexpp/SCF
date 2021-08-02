@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { TextToSpeech } from '@ionic-native/text-to-speech/ngx';
 import { vozTexto } from 'src/app/clases/vozTexto';
 import { actividad } from 'src/app/clases/actividad';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-pregunta1',
@@ -10,7 +11,7 @@ import { actividad } from 'src/app/clases/actividad';
 })
 export class Pregunta1Page implements OnInit {
 
-    constructor(private tts: TextToSpeech) { }
+    constructor(private tts: TextToSpeech, private router: Router) { }
 
   arreglo_informacion= ['barco','cangrejo','caramelo','conejo','escalera','escoba','cocodrilo','murcielago','oso','pera','sandalia','telefono'];
   
@@ -20,7 +21,7 @@ export class Pregunta1Page implements OnInit {
   enabledM=false;
 
   
-
+  numPr=0;
   
 
   source="";
@@ -57,9 +58,17 @@ export class Pregunta1Page implements OnInit {
 
     siguientePregunta() //cambia a la nueva pregunta
     {
+      if(this.numPr==this.act.arregloResp.length)
+      {
+      this.router.navigate(['/pregunta2']);
+      }
+      else
+      {
         this.source="";
         this.enabledM=false;
         this.imagenes = this.act.siguiente();
+        this.numPr++;
+      }
     }
 
     comprobarRespuesta(id) //comprueba la respuesta correcta

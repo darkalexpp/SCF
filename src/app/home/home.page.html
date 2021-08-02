@@ -8,40 +8,41 @@
     <ion-col>
       <ion-card no-margin margin-bottom class="full-width">
         <ion-card-header>
-          <h4  class="ion-text-center" color="white">Universidad del Azuay</h4>
+          <!--<h4  class="ion-text-center" color="white">Universidad del Azuay</h4>-->
         </ion-card-header>
         <ion-card-content>
-          <img >
+          <img src="/assets/logo.png">
 
           </ion-card-content>
       </ion-card>
       
-      <ion-card no-margin margin-bottom>
-        <ion-card-content>
-          <p>Lorem ipsum...</p>
-        </ion-card-content>
-      </ion-card>
     </ion-col>
   </ion-row>
 
 
-  <ion-button (click)="navigate()" expand="block" fill="clear" shape="round">
-      <h2 class="animate__animated animate__flash">
-    <ion-icon name="game-controller-outline" size="large" ></ion-icon>
-    </h2>
-  </ion-button>
+
 
 </ion-content> 
 
 <ion-footer>
   <ion-list>
     <ion-item>
+      <!--
       <ion-col size="12">
         <ion-button (click)="navigate()" expand="block" fill="clear" shape="round">
           <h2>¡EMPEZAR!</h2>
         <ion-icon name="game-controller-outline" size="large" ></ion-icon>
         </ion-button>
       </ion-col>
+      -->
+      <ion-col size="12">
+      <ion-button (click)="navigate()" expand="block" fill="clear" shape="round">
+        <h2 class="animate__animated animate__flash">
+      <ion-icon name="game-controller-outline" size="large" ></ion-icon>
+      </h2>
+    </ion-button>
+  </ion-col>
+
     </ion-item>
   </ion-list>
 </ion-footer>
