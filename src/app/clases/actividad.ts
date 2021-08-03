@@ -21,7 +21,7 @@ export class actividad{
         this.numOpcionesPregunta=OpPr;
         this.arreglo_recursos = this.crearRecursos();
         this.moverArregloInicial();
-        this.crearPreguntas();     
+        this.crearPreguntas();
         this.arregloResp = this.respRandom(numPr);
         this.siguiente();
 
@@ -50,24 +50,7 @@ export class actividad{
 
     moverArregloInicial()//Randomiza las posiciones del arreglo de recursos
     {
-      /*
-      for(let i=0;i<this.numRecursos+3;i++)
-      {
-        let n1: number = Math.floor(Math.random() * this.numRecursos);//en vez de 12 tu pondras 15 guambra
-        let n2 = Math.floor(Math.random() * this.numRecursos);
-        while(n1===n2)
-        {
-          n2 = Math.floor(Math.random() * this.numRecursos);
-        }
-  
-        let aux = this.arreglo_recursos[n1];
-  
-        this.arreglo_recursos[n1]=this.arreglo_recursos[n2];
-        this.arreglo_recursos[n2]=aux;
-        
-        
-  
-      }*/
+
       this.arreglo_recursos = this.arreglo_recursos.sort(() => Math.random() - 0.5);
   
     }
@@ -75,15 +58,13 @@ export class actividad{
     
     crearPreguntas() //Inserta en el arreglo bidimensional las preguntas por grupo 
     {
-      var pr = this.arreglo_recursos.length/this.numPreguntas;//pondras 5 aca guambra
+      var pr = this.numOpcionesPregunta;
       var cont=0;
       var matrix = [];
-      for(let i =0; i<this.arreglo_recursos.length;i++ )
-      {
+      for(let i =0; i<this.numRecursos;i++ ) {
         
         
-
-        var x: recurso [] = this.asignarArreglos(i,(i+pr));
+        var x: recurso [] = this.arreglo_recursos.slice(i,(i+pr));
 
         this.arreglo_preguntas.push(x);
         //console.log(this.arreglo_preguntas);
@@ -94,21 +75,8 @@ export class actividad{
 
       } 
 
-    
-      
     }
-    
-    asignarArreglos(ini,fin)//Funcion que genera un arreglo con los recursos para la pregunta
-    {
-      var arr = [];
-      for(let i=ini;i<fin;i++)
-      {
-        arr.push(this.arreglo_recursos[i]);
-        
-      }
-  
-      return arr;
-    }    
+
 
     respRandom(n: number) // genera las respuestas correctas al azar de la pregunta
     {
@@ -142,6 +110,13 @@ export class actividad{
       return imagenes;
       
     }    
+
+    obtenerNumPregunta(){
+      return this.numPreg;
+    }
+    obtenerNumTotalPreguntas(){
+      return this.numPreguntas;
+    }
 
 
     obtenerImagenesPregunta(n: number) // genera un arreglo de strings que va a ser las fuentes para las 3 imagenes de la pregunta
