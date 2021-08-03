@@ -23,6 +23,8 @@ export class Pregunta1Page implements OnInit {
   
   numPr=0;
   
+  acActual:string;
+  NacTotal:string;
 
   source="";
 
@@ -33,7 +35,8 @@ export class Pregunta1Page implements OnInit {
 
   ngOnInit() {
   
-    
+    this.NacTotal=this.act.obtenerNumTotalPreguntas()+'';
+
     this.siguientePregunta();
 
   }
@@ -66,6 +69,7 @@ export class Pregunta1Page implements OnInit {
       {
         this.source="";
         this.enabledM=false;
+        this.acActual = ''+(this.act.obtenerNumPregunta()+1);
         this.imagenes = this.act.siguiente();
         this.numPr++;
       }

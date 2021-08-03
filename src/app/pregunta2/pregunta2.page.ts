@@ -22,9 +22,12 @@ imagenes: string [];
 source="";
 act = new actividad(this.ra,5,3);
 recVoz = new recVoz(this.sr);
+acActual:string;
+NacTotal:string;
 
 constructor(private sr: SpeechRecognition) { }
 ngOnInit() {
+  this.NacTotal=this.act.obtenerNumTotalPreguntas()+'';
   this.siguientePregunta();
 }
 
@@ -96,8 +99,9 @@ clickOrden(){
       this.source="";
       this.enabledI = false;
       this.enabledM = true;
+      this.acActual = ''+(this.act.obtenerNumPregunta()+1);
       this.imagenes = this.act.siguiente();
-      //console.log(this.act.obtenerRespAudioLetras());     
+    
   }    
 
   skip(){
