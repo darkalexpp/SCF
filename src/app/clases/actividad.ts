@@ -36,7 +36,7 @@ export class actividad{
       {
         var r = new recurso;
         r.nombre = this.arreglo_informacion[i];
-        r.dirImagen = '/assets/img/'+this.arreglo_informacion[i]+'.jpg';
+        r.dirImagen = '/assets/img/'+this.arreglo_informacion[i]+'.png';
         r.audioPalabra = '/assets/aupalabra/'+this.arreglo_informacion[i]+'.ogg';
         r.audioSilabas = '/assets/ausilaba/'+this.arreglo_informacion[i]+'.ogg';
         r.audioLetras = '/assets/auletra/'+this.arreglo_informacion[i]+'.ogg';
