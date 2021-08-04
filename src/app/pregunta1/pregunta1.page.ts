@@ -3,6 +3,7 @@ import { TextToSpeech } from '@ionic-native/text-to-speech/ngx';
 import { vozTexto } from 'src/app/clases/vozTexto';
 import { actividad } from 'src/app/clases/actividad';
 import { Router } from '@angular/router';
+import { Platform } from '@ionic/angular';
 
 @Component({
   selector: 'app-pregunta1',
@@ -11,7 +12,7 @@ import { Router } from '@angular/router';
 })
 export class Pregunta1Page implements OnInit {
 
-    constructor(private tts: TextToSpeech, private router: Router) { }
+    constructor(private tts: TextToSpeech, private router: Router,private platform: Platform) { }
 
   arreglo_informacion= ['barco','cangrejo','caramelo','conejo','escalera','escoba','cocodrilo','murcielago','oso','pera','sandalia','telefono'];
   
@@ -27,6 +28,8 @@ export class Pregunta1Page implements OnInit {
   NacTotal:string;
 
   source="";
+  alto="";
+  ancho="";
 
   txtsp = new vozTexto(this.tts,'','es-EC',0.60);
 
@@ -36,8 +39,9 @@ export class Pregunta1Page implements OnInit {
   ngOnInit() {
   
     this.NacTotal=this.act.obtenerNumTotalPreguntas()+'';
-
+    this.setTam();
     this.siguientePregunta();
+    
 
   }
 
@@ -104,6 +108,22 @@ export class Pregunta1Page implements OnInit {
       var text = this.act.obtenerTextoPregunta();
       this.txtsp.texto = text; 
       this.txtsp.sonido();
+    }
+    setTam()
+    {
+      this.platform.ready().then(() => {
+        console.log('Width: ' + this.platform.width());
+
+        let a:number =this.platform.width();
+        //console.log('Height: ' + this.platform.height());
+        //this.alto = (""+this.platform.height());
+        a = a*0.20
+        this.alto=a+"";
+        this.ancho=a+"";
+
+          });
+
+      
     }
     
 }
