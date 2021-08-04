@@ -27,6 +27,9 @@ NacTotal:string;
 
 constructor(private sr: SpeechRecognition) { }
 ngOnInit() {
+  let audio = new Audio('assets/audio/short-circuit.mp3'); //Audio orden inicial
+    audio.load();
+    audio.play();
   this.NacTotal=this.act.obtenerNumTotalPreguntas()+'';
   this.siguientePregunta();
 }
@@ -49,7 +52,7 @@ ngOnInit() {
 }
 clickmic(){ //Evento de click en mic
 
-  this.skip();   
+  //this.skip();   
   var txt = this.recVoz.startListening();
   alert("dice: "+txt);
   alert("coindicencia de: "+this.recVoz.similarity(this.act.obtenerTextoPregunta(),txt))
@@ -57,7 +60,6 @@ clickmic(){ //Evento de click en mic
     let audio = new Audio('assets/audio/short-circuit.mp3');
   audio.load();
   audio.play();
-    this.siguientePregunta();
   }else{
     let audio = new Audio('assets/audio/short-circuit.mp3');
   audio.load();
@@ -67,7 +69,14 @@ clickmic(){ //Evento de click en mic
 
 clickOrden(){
  
-  let audio = new Audio('assets/audio/short-circuit.mp3');
+  let audio = new Audio('assets/audio/short-circuit.mp3'); //Orden inicial
+  audio.load();
+  audio.play();
+}
+
+clickAuResp(){
+ // let audio = new Audio(this.act.obtenerRespAudioLetras());
+  let audio = new Audio('assets/audio/short-circuit.mp3'); // palabra respuesta
   audio.load();
   audio.play();
 }
@@ -82,7 +91,6 @@ clickOrden(){
   audio.load();
   audio.play();
       this.enabledI = true;
-      this.siguientePregunta();
       
     }
     else{
@@ -93,22 +101,26 @@ clickOrden(){
     }
   }    
 
-  siguientePregunta() //cambia a la nueva pregunta
-  {
+  siguientePregunta(){ //cambia a la nueva pregunta
 
       this.source="";
-      this.enabledI = false;
-      this.enabledM = true;
       this.acActual = ''+(this.act.obtenerNumPregunta()+1);
       this.imagenes = this.act.siguiente();
-    
+    //  let audio = new Audio(this.act.obtenerRespAudioLetras());
+      let audio = new Audio('assets/audio/short-circuit.mp3'); //audio palabra respuesta
+    audio.load();
+    audio.play();
   }    
 
-  skip(){
+  skip(ev){
+    if(ev.detail.checked){
         this.enabledM = false;
         this.enabledI = true;
+    }else{
+      this.enabledM = true;
+        this.enabledI = false;
+    }
   }    
-
 }
 
 

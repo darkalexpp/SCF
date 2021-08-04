@@ -10,27 +10,46 @@
 
 <ion-content>
     <ion-item>
-      <ion-col size="9"><ion-label>Adivina y pronuncia la palabra que se forma con los siguientes sonidos</ion-label></ion-col>
-      <ion-col size="1">
+      <ion-row>
+        <ion-col col-auto>
+            <table>
+                <tr>
+                  <td>
+        <ion-label>Adivina y pronuncia la palabra que se forma con los siguientes sonidos. </ion-label>
+      </td>
+      <td>
         <ion-button (click)="clickOrden()" expand="block" fill="clear" shape="round">
           <ion-icon name="volume-high"></ion-icon>
         </ion-button>
-      </ion-col>
-      <ion-col size="2">       
-      </ion-col>
+      </td>
+    </tr>
+</table>
+</ion-col>
+</ion-row>
     </ion-item>
-  
-    
+
+    <ion-item>
+      <ion-row>
+        <ion-col col-auto>
+            <table>
+                <tr>
+                  <td>
+        <ion-label>La palabra es: </ion-label>
+      </td>
+      <td>
+        <ion-button (click)="clickOrden()" expand="block" fill="clear" shape="round">
+          <ion-icon name="volume-high"></ion-icon>
+        </ion-button>
+      </td>
+    </tr>
+</table>
+</ion-col>
+</ion-row>
+<ion-toggle slot="end" (ionChange)="skip($event)" color="primary"></ion-toggle>
+    </ion-item>
+
     <ion-item>
       <ion-grid>
-        <ion-row>
-          <ion-col size="4"></ion-col>
-          <ion-col size="4">
-            <ion-button (click)="clickOrden()" expand="block" fill="clear" shape="round">
-              <ion-icon size="large" name="volume-high"></ion-icon>
-            </ion-button>
-          </ion-col>
-        </ion-row>
 
         <ion-row *ngIf="enabledM">
           <ion-col size="5"></ion-col>
@@ -41,9 +60,6 @@
           </ion-col>
           <ion-col size="4"></ion-col>
           <ion-col size="1">
-          <ion-button (click)="skip()" expand="block" fill="clear"   shape="round">
-            Saltar
-            </ion-button>
             </ion-col>                
         </ion-row>
       </ion-grid>    
