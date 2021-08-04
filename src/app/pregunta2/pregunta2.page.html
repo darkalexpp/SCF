@@ -2,8 +2,9 @@
   <ion-toolbar color="primary">
     <ion-title slot="start">Conciencia Fonémica</ion-title>
     <ion-title >{{acActual}}/{{NacTotal}}</ion-title>
-    <ion-button slot="end" (click)="siguientePregunta()" expand="block" fill="clear" shape="round">
-      Siguiente
+    <ion-button slot="end" (click)="siguientePregunta()" expand="block"shape="round">
+     
+      <ion-icon name="arrow-forward-outline"></ion-icon>
     </ion-button>
   </ion-toolbar>
 </ion-header>
@@ -52,11 +53,15 @@
       <ion-grid>
 
         <ion-row *ngIf="enabledM">
-          <ion-col col-auto>
-            <ion-card style="display: flex; align-items: center;justify-content: center;" button (click)="clickmic()" expand="block" fill="clear" shape="round">
-              <img style="display: flex; align-items: center;justify-content: center;" src="/assets/icon/mic.png" >
+          <ion-col size="5"></ion-col>
+          <ion-col size="2">
+            <ion-card button (click)="clickmic()" expand="block" fill="clear" shape="round">
+              <img src="/assets/icon/mic.png" >
             </ion-card>
           </ion-col>
+          <ion-col size="4"></ion-col>
+          <ion-col size="1">
+            </ion-col>                
         </ion-row>
       </ion-grid>    
     </ion-item>   
@@ -68,7 +73,7 @@
         <ion-row *ngIf="enabledI">
           <ion-col size="4" *ngFor="let imagen of imagenes;let i = index">
             <ion-card button (click)="cardClick($event)" id ="card{{i}}" class="animate__animated animate__heartBeat">
-              <img style="display: flex; align-items: center;justify-content: center;" id="img{{i}}" src="{{imagen}}" >
+              <img id="img{{i}}" src="{{imagen}}" >
             </ion-card>
           </ion-col>
         </ion-row>
