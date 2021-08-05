@@ -39,7 +39,7 @@ export class Pregunta1Page implements OnInit {
   ngOnInit() {
   
     this.NacTotal=this.act.obtenerNumTotalPreguntas()+'';
-    this.setTam();
+    //this.setTam(); setear tamaño basado en los pixeles
     this.siguientePregunta();
     
 
