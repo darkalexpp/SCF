@@ -53,15 +53,11 @@
       <ion-grid>
 
         <ion-row *ngIf="enabledM">
-          <ion-col size="5"></ion-col>
-          <ion-col size="2">
-            <ion-card button (click)="clickmic()" expand="block" fill="clear" shape="round">
-              <img src="/assets/icon/mic.png" >
+          <ion-col col-auto>
+          <ion-card style="display: flex; align-items: center;justify-content: center;" button (click)="clickmic()" expand="block" fill="clear" shape="round">
+          <img style="display: flex; align-items: center;justify-content: center;" src="/assets/icon/mic.png" >
             </ion-card>
-          </ion-col>
-          <ion-col size="4"></ion-col>
-          <ion-col size="1">
-            </ion-col>                
+          </ion-col>            
         </ion-row>
       </ion-grid>    
     </ion-item>   
@@ -73,8 +69,7 @@
         <ion-row *ngIf="enabledI">
           <ion-col size="4" *ngFor="let imagen of imagenes;let i = index">
             <ion-card button (click)="cardClick($event)" id ="card{{i}}" class="animate__animated animate__heartBeat">
-              <img id="img{{i}}" src="{{imagen}}" >
-            </ion-card>
+              <img style="display: flex; align-items: center;justify-content: center;" id="img{{i}}" src="{{imagen}}" >            </ion-card>
           </ion-col>
         </ion-row>
       </ion-grid>    
