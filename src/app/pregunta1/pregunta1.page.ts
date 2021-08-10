@@ -42,7 +42,6 @@ export class Pregunta1Page implements OnInit {
     this.NacTotal=this.act.obtenerNumTotalPreguntas()+'';
     //this.setTam(); setear tamaño basado en los pixeles
     this.siguientePregunta();
-    preferencias.CFActividades=45;
 
   }
 
