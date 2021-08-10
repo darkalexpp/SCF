@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 
+import { preferencias } from 'src/app/clases/preferencias';
 import { actividad } from 'src/app/clases/actividad';
 import { SpeechRecognition } from '@ionic-native/speech-recognition/ngx';
 import { recVoz } from '../clases/recVoz';
@@ -16,11 +17,11 @@ public enabledI = false;
 public enabledM = true;
 
 
-ra= ['barco','cangrejo','caramelo','conejo','escalera','escoba','cocodrilo','murcielago','oso','pera','sandalia','telefono','carro','dado','fresa'];
+ra=preferencias.raCF;
 
 imagenes: string [];
 source="";
-act = new actividad(this.ra,5,3);
+act = new actividad(this.ra,preferencias.CFActividades,3);
 recVoz = new recVoz(this.sr);
 acActual:string;
 NacTotal:string;

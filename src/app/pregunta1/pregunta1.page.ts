@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { TextToSpeech } from '@ionic-native/text-to-speech/ngx';
+
+import { preferencias } from 'src/app/clases/preferencias';
 import { vozTexto } from 'src/app/clases/vozTexto';
 import { actividad } from 'src/app/clases/actividad';
 import { Router } from '@angular/router';
@@ -14,8 +16,7 @@ export class Pregunta1Page implements OnInit {
 
     constructor(private tts: TextToSpeech, private router: Router,private platform: Platform) { }
 
-  arreglo_informacion= ['barco','cangrejo','caramelo','conejo','escalera','escoba','cocodrilo','murcielago','oso','pera','sandalia','telefono'];
-  
+  arreglo_informacion=preferencias.raCS;
 
 
   imagenes: string [];
@@ -41,7 +42,7 @@ export class Pregunta1Page implements OnInit {
     this.NacTotal=this.act.obtenerNumTotalPreguntas()+'';
     //this.setTam(); setear tamaño basado en los pixeles
     this.siguientePregunta();
-    
+    preferencias.CFActividades=45;
 
   }
 
@@ -101,6 +102,13 @@ export class Pregunta1Page implements OnInit {
       }
     }
  
+    
+clickOrden(){
+ 
+  let audio = new Audio('assets/audio/short-circuit.mp3'); //Orden inicial
+  audio.load();
+  audio.play();
+}
 
     sonidoPregunta()
     {
