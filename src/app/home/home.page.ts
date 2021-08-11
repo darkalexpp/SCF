@@ -21,10 +21,6 @@ export class HomePage {
     this.router.navigate(['/pregunta1'])
   }
 
-  clickConfig() {
-    alert("hola");
-  }
-
   hidenmenu() {
    this.cnt++
    if (this.cnt===10){
