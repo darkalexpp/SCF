@@ -2,8 +2,7 @@
   <ion-toolbar color="primary">
     <ion-title slot="start">Conciencia Fonémica</ion-title>
     <ion-title >{{acActual}}/{{NacTotal}}</ion-title>
-    <ion-button slot="end" (click)="siguientePregunta()" expand="block"shape="round">
-     
+    <ion-button color="secondary" slot="end" (click)="siguientePregunta()" expand="block" shape="round">
       <ion-icon name="arrow-forward-outline"></ion-icon>
     </ion-button>
   </ion-toolbar>
@@ -16,7 +15,7 @@
             <table>
                 <tr>
                   <td>
-        <ion-label style="font-size: 50%;">Adivina y pronuncia la palabra que se forma con los siguientes sonidos. </ion-label>
+        <ion-label style="font-size: 50%;">{{txtorden}}</ion-label>
       </td>
       <td>
         <ion-button (click)="clickOrden()" expand="block" fill="clear" shape="round">
@@ -46,7 +45,7 @@
 </table>
 </ion-col>
 </ion-row>
-<ion-toggle slot="end" (ionChange)="skip($event)" color="primary"></ion-toggle>
+<ion-toggle color="secondary" slot="end" (ionChange)="skip($event)" mode="ios" checked="true" color="secondary"></ion-toggle>
     </ion-item>
 
     <ion-item>

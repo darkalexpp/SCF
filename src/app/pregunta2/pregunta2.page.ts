@@ -17,110 +17,142 @@ public enabledI = false;
 public enabledM = true;
 
 
-ra=preferencias.raCF;
-
+ra=[];
 imagenes: string [];
 source="";
-act = new actividad(this.ra,preferencias.CFActividades,3);
+act: any;
 recVoz = new recVoz(this.sr);
 acActual:string;
 NacTotal:string;
+enablemic:boolean=true;
+txtorden:string="Adivina y pronuncia la palabra que se forma con los siguientes sonidos. ";
 
-constructor(private sr: SpeechRecognition) { }
+audio;
+
+constructor(private sr: SpeechRecognition) { 
+  this.ra=preferencias.raCF;
+  this.act = new actividad(this.ra,preferencias.CFActividades,3);
+}
 ngOnInit() {
-  let audio = new Audio('assets/audio/short-circuit.mp3'); //Audio orden inicial
-    audio.load();
-    audio.play();
+
+  this.audio = new Audio('assets/auordenes/fonemica.m4a'); //Audio orden inicial
+  this.audio.load();
+  this.audio.play();
   this.NacTotal=this.act.obtenerNumTotalPreguntas()+'';
-  this.siguientePregunta();
+    this.siguientePregunta();
 }
 
 
-  cardClick(ev){ //Evento de click que carga la imagen principal
-  
-    var name:string = ev.target.id;
-    name = name.replace('card','img')
-    var input = document.getElementById(name);
-    var srcAttr = input.getAttribute('src');
-    
-    this.source=srcAttr;//estabelece imagen grande
-    let audio = new Audio('assets/audio/short-circuit.mp3');
-    audio.load();
-    audio.play();
+cardClick(ev){ //Evento de click que carga la imagen principal
+  this.audio.pause(); 
+  var id:string = ev.target.id;
+    id = id.replace('img','')
+    var audiocard=this.imagenes[id].replace('img','aupalabra');
+    audiocard=audiocard.replace('png','m4a');
+    console.log( audiocard); 
 
-    let id: string =  name.slice(3); //id de la opcion seleccionada
+    this.audio = new Audio(audiocard);
+    this.audio.load();
+    this.audio.play();
+    setTimeout(() => {  
     this.comprobarRespuesta(id);
-}
+    }, 1800);
+}pregunta2
+
 clickmic(){ //Evento de click en mic
 
-  //this.skip();   
+  this.audio.pause();
   var txt = this.recVoz.startListening();
   alert("dice: "+txt);
   alert("coindicencia de: "+this.recVoz.similarity(this.act.obtenerTextoPregunta(),txt))
   if (this.recVoz.similarity(this.act.obtenerTextoPregunta(),txt) >= 0.5){
-    let audio = new Audio('assets/audio/short-circuit.mp3');
-  audio.load();
-  audio.play();
+    this.audio = new Audio('assets/auordenes/LoHicMuyBien.m4a');
+    this.audio.load();
+    this.audio.play();
   }else{
-    let audio = new Audio('assets/audio/short-circuit.mp3');
-  audio.load();
-  audio.play();
+    this.audio = new Audio('assets/auordenes/IntDeNue.m4a');
+    this.audio.load();
+    this.audio.play();
   }
 }
 
 clickOrden(){
- 
-  let audio = new Audio('assets/audio/short-circuit.mp3'); //Orden inicial
-  audio.load();
-  audio.play();
+  this.audio.pause();
+ if (this.enablemic)
+ this.audio = new Audio('assets/auordenes/fonemica.m4a'); //Orden inicial
+  else
+  this.audio = new Audio('assets/auordenes/fonemica2.m4a'); //Orden inicial alternativo
+  this.audio.load();
+  this.audio.play();
 }
 
 clickAuResp(){
- // let audio = new Audio(this.act.obtenerRespAudioLetras());
-  let audio = new Audio('assets/audio/short-circuit.mp3'); // palabra respuesta
-  audio.load();
-  audio.play();
+  this.audio.pause();
+  this.audio = new Audio(this.act.obtenerRespAudioLetras());
+ // let audio = new Audio('assets/audio/short-circuit.mp3'); // palabra respuesta
+ this.audio.load();
+ this.audio.play();
 }
 
   comprobarRespuesta(id) //comprueba la respuesta correcta
   {
-    if(id==this.act.obtenerRespuestaCorrecta())
-    {
-      
-      alert("Muy bien.");
-      let audio = new Audio('assets/audio/short-circuit.mp3');
-  audio.load();
-  audio.play();
+    this.audio.pause();
+    if(id==this.act.obtenerRespuestaCorrecta()){  
+      this.audio = new Audio('assets/auordenes/LoHicMuyBien.m4a');
+      this.audio.load();
+      this.audio.play();
+      alert("Muy bien.");   
       this.enabledI = true;
-      
     }
     else{
+      this.audio = new Audio('assets/auordenes/IntDeNue.m4a');
+      this.audio.load();
+      this.audio.play();
       alert("Inténtalo de nuevo.")
-      let audio = new Audio('assets/audio/short-circuit.mp3');
-  audio.load();
-  audio.play();
     }
+
   }    
 
   siguientePregunta(){ //cambia a la nueva pregunta
-
+    var time: number = 0;
+    if (this.act.obtenerNumPregunta()==0)
+    time=6500;
+    else time=0;
       this.source="";
       this.acActual = ''+(this.act.obtenerNumPregunta()+1);
       this.imagenes = this.act.siguiente();
-    //  let audio = new Audio(this.act.obtenerRespAudioLetras());
-      let audio = new Audio('assets/audio/short-circuit.mp3'); //audio palabra respuesta
-    audio.load();
-    audio.play();
-  }    
+      //console.log(this.imagenes);
+      setTimeout(() => {   
+        this.audio.pause();       
+        this.audio = new Audio('assets/auordenes/LaPalEs.m4a');
+        this.audio.load();
+        this.audio.play();
+    setTimeout(() => {          
+      this.audio= new Audio(this.act.obtenerRespAudioLetras());
+      this.audio.load();
+      this.audio.play();
+              }, 2000);   
+  }, time); 
+            }
 
   skip(ev){
+    this.audio.pause();
     if(ev.detail.checked){
-        this.enabledM = false;
-        this.enabledI = true;
-    }else{
+      this.txtorden="Adivina y pronuncia la palabra que se forma con los siguientes sonidos. ";
+      this.audio = new Audio('assets/auordenes/fonemica.m4a'); //Orden inicial alternativo
+      this.enablemic=true;
       this.enabledM = true;
         this.enabledI = false;
+    }else{
+      this.txtorden="Adivina y selecciona la imagen que corresponde a los siguientes sonidos. ";
+      this.audio = new Audio('assets/auordenes/fonemica2.m4a'); //Orden inicial
+      this.enablemic=false;
+        this.enabledM = false;
+        this.enabledI = true;
+
     }
+    this.audio.load();
+    this.audio.play();
   }    
 }
 
