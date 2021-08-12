@@ -10,6 +10,7 @@ export class actividad{
     numRecursos: number;
     numPreguntas: number;
     numOpcionesPregunta: number;
+    recursos_rima:string [][];
     
 
 
@@ -148,5 +149,42 @@ export class actividad{
     {
       return this.arreglo_preguntas[this.numPreg][this.obtenerRespuestaCorrecta()].audioLetras;
     }
+/////
+    insertarRimas()
+    {
+      var arr = this.arreglo_preguntas;//arregla esto
+      console.log(this.recursos_rima);
+      for(let i=0;i<this.arreglo_preguntas.length;i++)
+      {
+
+        var r = new recurso;
+        r.nombre = this.recursos_rima[1][i];
+        r.dirImagen = '/assets/img/'+this.recursos_rima[1][i]+'.png';
+        r.audioPalabra = '/assets/aupalabra/'+this.recursos_rima[1][i]+'.m4a';
+        r.audioSilabas = '/assets/ausilaba/'+this.recursos_rima[1][i]+'.m4a';
+        r.audioLetras = '/assets/auletra/'+this.recursos_rima[1][i]+'.m4a';
+
+        arr[i][this.arregloResp[i]] = r;
+
+
+      }
+
+      console.log(arr);
+      
+    }
+
+    establecerRecursosRimas(arr: string [][])
+    {
+      this.recursos_rima = arr;
+      this.insertarRimas();
+    }
+
+    obtenerFuentePreguntaRima()
+    {
+      console.log('numPre: '+this.numPreg);
+      var f = this.recursos_rima[0][this.numPreg];
+      return f;
+    }
+
 
 }

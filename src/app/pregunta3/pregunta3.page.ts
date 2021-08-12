@@ -1,21 +1,22 @@
 import { Component, OnInit } from '@angular/core';
-//import { TextToSpeech } from '@ionic-native/text-to-speech/ngx';
+
+
 
 import { preferencias } from 'src/app/clases/preferencias';
 import { vozTexto } from 'src/app/clases/vozTexto';
 import { actividad } from 'src/app/clases/actividad';
-import { Router } from '@angular/router';
 import { Platform } from '@ionic/angular';
+import { Router } from '@angular/router';
+
 
 @Component({
-  selector: 'app-pregunta1',
-  templateUrl: './pregunta1.page.html',
-  styleUrls: ['./pregunta1.page.scss'],
+  selector: 'app-pregunta3',
+  templateUrl: './pregunta3.page.html',
+  styleUrls: ['./pregunta3.page.scss'],
 })
-export class Pregunta1Page implements OnInit {
+export class Pregunta3Page implements OnInit {
 
-    constructor(/*private tts: TextToSpeech,*/ private router: Router,private platform: Platform) { }
-
+  constructor(private platform: Platform, private router: Router) { }
   arreglo_informacion=preferencias.raCS;
 
 
@@ -41,6 +42,7 @@ export class Pregunta1Page implements OnInit {
   
     this.NacTotal=this.act.obtenerNumTotalPreguntas()+'';
     //this.setTam(); setear tamaño basado en los pixeles
+    this.act.establecerRecursosRimas(preferencias.raCI);
     this.siguientePregunta();
 
   }
@@ -67,15 +69,19 @@ export class Pregunta1Page implements OnInit {
     {
       if(this.numPr==this.act.arregloResp.length)
       {
-      this.router.navigate(['/pregunta2']);
+      this.router.navigate(['/home']);
       }
       else
       {
         this.source="";
         this.enabledM=false;
         this.acActual = ''+(this.act.obtenerNumPregunta()+1);
+        //
+        console.log(this.act.obtenerFuentePreguntaRima());
+        //
         this.imagenes = this.act.siguiente();
         this.numPr++;
+        
       }
     }
 
@@ -114,7 +120,7 @@ clickOrden(){
 
       var text = this.act.obtenerTextoPregunta();
       //this.txtsp.texto = text; 
-      //this.txtsp.sonido();
+     //this.txtsp.sonido();
     }
     setTam()
     {
@@ -134,6 +140,5 @@ clickOrden(){
     }
     
 }
-
 
 
