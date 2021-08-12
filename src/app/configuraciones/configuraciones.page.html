@@ -1,0 +1,59 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-title style="text-align: center;">Configuraciones</ion-title>
+    <ion-button color="secondary" slot="end" (click)="guardar()" expand="block" shape="round">
+      Guardar 
+      <ion-icon name="save"></ion-icon>
+    </ion-button>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-list style="background-color:#121212;">
+    <ion-item color="primary" buttom (click)="showSubMenuCS()">
+      <ion-label>Conciencia Silabica</ion-label>
+    </ion-item>
+      <div *ngIf="CSMenu">
+        <ion-item>
+          <ion-label>Numero de etapas: </ion-label>
+          <ion-input type="number" value="4"></ion-input>
+        </ion-item>
+        <ion-item style="margin-top: 10px; border-radius: 15px;" *ngFor="let ck of CheckboxesCS">
+          <ion-thumbnail item-left>
+            <img style="height: auto; width: auto;" src="/assets/img/{{ck.nombre}}.png" />
+          </ion-thumbnail>
+          <ion-label>{{ck.nombre}}</ion-label>
+          <ion-toggle mode="ios" color="secondary" slot="end" [(ngModel)]="ck.ischecked" ></ion-toggle>
+        </ion-item>
+      </div>
+    
+    <ion-item color="primary" buttom (click)="showSubMenuCF()">
+      <ion-label>Conciencia Fonologica</ion-label>
+    </ion-item>
+      <div *ngIf="CFMenu">
+        <ion-item>
+          <ion-label>Numero de etapas: </ion-label>
+          <ion-input type="number" value="4"></ion-input>
+        </ion-item>
+        <ion-item style="margin-top: 10px; border-radius: 15px;" *ngFor="let ck2 of CheckboxesCF">
+          <ion-thumbnail item-left>
+            <img src="/assets/img/{{ck2.nombre}}.png" />
+          </ion-thumbnail>
+          <ion-label> {{ck2.nombre}}</ion-label>
+          <ion-toggle mode="ios" color="secondary" slot="end" [(ngModel)]="ck2.ischecked" ></ion-toggle>
+        </ion-item>
+      </div>
+    <ion-item color="primary">
+      <ion-label>Conciencia Intra-Silabica</ion-label>
+    </ion-item>
+    <ion-item color="primary"> 
+      <ion-label>Mas configuraciones</ion-label>
+    </ion-item>
+    <ion-item>
+    <ion-range min="100" max="200" color="secondary" (ionChange)="changetxt()" [(ngModel)]="Ttexto" >
+      <ion-label slot="start" >Tamaño de texto: 100%</ion-label>
+      <ion-label slot="end">200%</ion-label>
+    </ion-range>
+    </ion-item>
+  </ion-list>
+</ion-content>

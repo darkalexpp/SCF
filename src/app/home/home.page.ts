@@ -1,20 +1,51 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { MenuController } from '@ionic/angular';
+import { StorageService } from '../storage.service';
+
+import { preferencias } from '../clases/preferencias';
+
+
 
 @Component({
   selector: 'app-home',
   templateUrl: 'home.page.html',
   styleUrls: ['home.page.scss'],
 })
-export class HomePage {
+export class HomePage implements OnInit {
 
   cnt: number;
 
-  constructor(private router: Router, private menu: MenuController) {
+  constructor(private router: Router, private menu: MenuController,public storageService: StorageService) {
     this.menu.swipeGesture(true);
     this.cnt=0;
    }
+   ngOnInit() {
+
+    this.storageService.getObject('raCF').then(result => {
+      if (result != null) {
+      preferencias.raCF=result;
+      }else{
+        var  temprf = [];
+        for (var p of preferencias.rnCF){
+          temprf.push(preferencias.BaseRecursosAll[p]);   }
+          preferencias.raCF=temprf;   
+      }
+      }).catch(e => {
+      console.log('error: '+ e);  });
+
+      this.storageService.getObject('raCS').then(result => {
+        if (result != null) {
+        preferencias.raCS=result;
+        }else{
+          var temprs = [];
+          for (var p of preferencias.rnCS){
+            temprs.push(preferencias.BaseRecursosAll[p]);   }
+        preferencias.raCS=temprs;
+        }
+        }).catch(e => {
+        console.log('error: '+ e);  });  
+}
 
   navigate(){
     this.menu.swipeGesture(false);
@@ -28,6 +59,11 @@ export class HomePage {
     this.menu.open('first');
     this.cnt=0;
    }
+
+  
+
+
+
 
   }
 }
