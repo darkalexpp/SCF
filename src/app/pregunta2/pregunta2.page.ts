@@ -4,6 +4,7 @@ import { preferencias } from 'src/app/clases/preferencias';
 import { actividad } from 'src/app/clases/actividad';
 import { SpeechRecognition } from '@ionic-native/speech-recognition/ngx';
 import { recVoz } from '../clases/recVoz';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-pregunta2',
@@ -28,8 +29,9 @@ enablemic:boolean=true;
 txtorden:string="Adivina y pronuncia la palabra que se forma con los siguientes sonidos. ";
 
 audio;
+numPr=0;
 
-constructor(private sr: SpeechRecognition) { 
+constructor(private sr: SpeechRecognition, private router: Router) { 
   this.ra=preferencias.raCF;
   this.act = new actividad(this.ra,preferencias.CFActividades,3);
 }
@@ -114,12 +116,20 @@ clickAuResp(){
   }    
 
   siguientePregunta(){ //cambia a la nueva pregunta
+    
+    if(this.numPr==this.act.arregloResp.length)
+    {
+    this.router.navigate(['/pregunta3']);
+    }
+    else
+    {   
+      this.numPr++;
     var time: number = 0;
     if (this.act.obtenerNumPregunta()==0)
     time=6500;
     else time=0;
       this.source="";
-      this.acActual = ''+(this.act.obtenerNumPregunta()+1);
+      this.acActual = ''+(this.act.obtenerNumPregunta()+2);
       this.imagenes = this.act.siguiente();
       //console.log(this.imagenes);
       setTimeout(() => {   
@@ -134,6 +144,7 @@ clickAuResp(){
               }, 2000);   
   }, time); 
             }
+    }
 
   skip(ev){
     this.audio.pause();

@@ -17,7 +17,7 @@ import { Router } from '@angular/router';
 export class Pregunta3Page implements OnInit {
 
   constructor(private platform: Platform, private router: Router) { }
-  arreglo_informacion=preferencias.raCS;
+  arreglo_informacion=preferencias.raCI1;
 
 
   imagenes: string [];
@@ -32,32 +32,67 @@ export class Pregunta3Page implements OnInit {
   source="";
   alto="";
   ancho="";
+  audio;
+  audioi1;
+  audioi2;
+  
+  audior1;
+  audior2;
+  audiop;
+  timerId;
+
+  icdis: boolean = true;
 
   //txtsp = new vozTexto(this.tts,'','es-EC',0.60);
 
-  act = new actividad(this.arreglo_informacion,4,3);
+  act = new actividad(this.arreglo_informacion,2,3);
 
 
   ngOnInit() {
+    
+    this.audioi1 = new Audio('');
+    this.audioi2 = new Audio('');
+    this.audior1 = new Audio('');
+    this.audior2 = new Audio('');
+    this.audiop = new Audio('');
+
+    this.audio = new Audio('');
   
     this.NacTotal=this.act.obtenerNumTotalPreguntas()+'';
     //this.setTam(); setear tamaño basado en los pixeles
-    this.act.establecerRecursosRimas(preferencias.raCI);
+    this.act.establecerRecursosRimas(preferencias.raCI2);
+    
     this.siguientePregunta();
+
+
 
   }
 
   cardClick(ev) //Evento de click que carga la imagen principal
   {
     var name:string = ev.target.id;
-    name = name.replace('card','img')
-    var input = document.getElementById(name);
-    var srcAttr = input.getAttribute('src');
-    this.source=srcAttr;//estabelece imagen grande
-    this.enabledM=true;
+    //name = name.replace('card','img')
+    //var input = document.getElementById(name);
+    //var srcAttr = input.getAttribute('src');
+    //this.source=srcAttr;//estabelece imagen grande
+    //this.enabledM=true;
 
-    let id: string =  name.slice(3); //id de la opcion seleccionada
+    //name = ev.target.id;
+
+    let id = name.replace('img','')
+    var audiocard=this.imagenes[id].replace('img','aupalabra');
+    audiocard=audiocard.replace('png','m4a');
+    //console.log( audiocard); 
+
+    this.stopAudio();
+    this.audiop = new Audio(audiocard);
+    this.audiop.load();
+    this.audiop.play();
+    clearTimeout(this.timerId); 
+    setTimeout(() => {  
     this.comprobarRespuesta(id);
+    }, 1800);
+
     
   }
 
@@ -67,20 +102,24 @@ export class Pregunta3Page implements OnInit {
 
     siguientePregunta() //cambia a la nueva pregunta
     {
+      
       if(this.numPr==this.act.arregloResp.length)
       {
       this.router.navigate(['/home']);
       }
       else
       {
+        this.icdis=true;
         this.source="";
         this.enabledM=false;
-        this.acActual = ''+(this.act.obtenerNumPregunta()+1);
+        this.acActual = ''+(this.act.obtenerNumPregunta()+2);
         //
-        console.log(this.act.obtenerFuentePreguntaRima());
+        
         //
         this.imagenes = this.act.siguiente();
+        this.source = this.act.obtenerFuentePreguntaRima().dirImagen.toString();
         this.numPr++;
+        this.clickOrden();
         
       }
     }
@@ -91,37 +130,66 @@ export class Pregunta3Page implements OnInit {
       
       if(id==this.act.obtenerRespuestaCorrecta())
       {
-        alert("Muy bien.");
+        //alert("Muy bien.");
         //this.txtsp.texto = "Muy bien.";
         //this.txtsp.sonido();
-        this.siguientePregunta()
+        //this.siguientePregunta()
+        clearTimeout(this.timerId);
+        this.timerId = setTimeout(() => {          
+          this.audior1= new Audio('assets/auordenes/LoHicMuyBien.m4a');
+          this.audior1.load();
+          this.audior1.play();
+                  }, 0);          
       }
       else{
         
-        alert("Inténtalo de nuevo.");
-        //this.txtsp.texto = "Inténtalo de nuevo.";
-        //this.txtsp.sonido();
-        let audio = new Audio('assets/audio/short-circuit.mp3');
-        audio.load();
-        audio.play();
+        clearTimeout(this.timerId);
+        this.timerId =  setTimeout(() => {          
+        this.audior2= new Audio('assets/auordenes/IntDeNue.m4a');
+        this.audior2.load();
+        this.audior2.play();
+                }, 0); 
       }
+      this.enabledM=false;
     }
  
     
-clickOrden(){
- 
-  let audio = new Audio('assets/audio/short-circuit.mp3'); //Orden inicial
-  audio.load();
-  audio.play();
-}
+  clickOrden(){
+  //this.audio.pause();
+    this.stopAudio();
+    //this.audio.currentTime = 0;
+    //this.audio = new Audio('');
+  
+    
+    clearTimeout(this.timerId);
+    this.timerId = setTimeout(() => {   
+    this.audioi1.pause();       
+    this.audioi1 = new Audio('assets/auordenes/silabica.m4a');
+    this.audioi1.load();
+    this.audioi1.play();
 
-    sonidoPregunta()
-    {
+    clearTimeout(this.timerId);  
+    this.timerId = setTimeout(() => {          
+      this.audioi2= new Audio('assets/auordenes/LaPalEs.m4a');
+      this.audioi2.load();
+      this.audioi2.play();
 
-      var text = this.act.obtenerTextoPregunta();
-      //this.txtsp.texto = text; 
-     //this.txtsp.sonido();
-    }
+
+      clearTimeout(this.timerId);  
+      this.timerId =setTimeout(() => {          
+        this.audio= new Audio(this.act.obtenerRespAudioLetras());
+        this.audio.load();
+        this.audio.play();
+
+        this.icdis = false;
+        
+      }, 2000);  
+    }, 9500);   
+    }, 3000); 
+
+  }
+
+
     setTam()
     {
       this.platform.ready().then(() => {
@@ -137,6 +205,43 @@ clickOrden(){
           });
 
       
+    }
+
+    clickAuResp()
+    {
+      //this.audio.pause();
+      this.stopAudio();
+
+      clearTimeout(this.timerId);
+      this.timerId = this.timerId = setTimeout(() => {          
+        this.audioi2= new Audio('assets/auordenes/LaPalEs.m4a');
+        this.audioi2.load();
+        this.audioi2.play();
+
+        clearTimeout(this.timerId);
+        this.timerId = setTimeout(() => {          
+          this.audio= new Audio(this.act.obtenerRespAudioLetras());
+          this.audio.load();
+          this.audio.play();
+    
+          this.icdis = false;
+        }, 2000);  
+      }, 1000);   
+    }
+
+    stopAudio()
+    {
+      this.audio.pause();
+      this.audioi1.pause();
+      this.audioi2.pause();
+      this.audior1.pause();
+      //this.audior1.currentTime = 0;
+      this.audior2.pause();
+      //this.audior2.currentTime = 0;
+      this.audiop.pause();
+  
+    
+
     }
     
 }

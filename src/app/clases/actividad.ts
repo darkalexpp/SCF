@@ -24,7 +24,9 @@ export class actividad{
         this.moverArregloInicial();
         this.crearPreguntas();
         this.arregloResp = this.respRandom(numPr);
-        this.siguiente();
+        
+        //this.siguiente();
+        
 
         
     }
@@ -95,6 +97,7 @@ export class actividad{
 
     siguiente() //cambia a la nueva pregunta-----------------------------ARREGLA
     {
+      console.log("NP:"+this.numPreg);
       this.numPreg++;
       //this.source="";
       var imagenes: string [];
@@ -108,6 +111,8 @@ export class actividad{
         this.numPreg=0;
         imagenes = this.obtenerImagenesPregunta(this.numPreg);
       }
+
+      
       return imagenes;
       
     }    
@@ -183,7 +188,16 @@ export class actividad{
     {
       console.log('numPre: '+this.numPreg);
       var f = this.recursos_rima[0][this.numPreg];
-      return f;
+
+      var r = new recurso;
+      r.nombre = f;
+      r.dirImagen = '/assets/img/'+f+'.png';
+      r.audioPalabra = '/assets/aupalabra/'+f+'.m4a';
+      r.audioSilabas = '/assets/ausilaba/'+f+'.m4a';
+      r.audioLetras = '/assets/auletra/'+f+'.m4a';
+
+      
+      return r;
     }
 
 

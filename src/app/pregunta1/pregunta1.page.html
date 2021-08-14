@@ -14,22 +14,24 @@
     <ion-item>
       <ion-row>
         
-          <ion-col size="10">
-
-            <ion-label style="font-size: 50%;">Adivina y pronuncia la palabra que se forma con los siguientes sonidos</ion-label>
-            
+          <ion-col size="12">
+            <table>
+              <tr>
+                <td>
+                   <ion-label style="font-size: 40%;">Adivina y pronuncia la palabra que correponde a la siguiente secuencia de sílabas escuchadas</ion-label>
+                </td>
+                <td>
+                  <ion-button (click)="clickOrden()" expand="block" fill="clear" shape="round">
+                
+                  <ion-icon name="volume-high"></ion-icon>
+                  </ion-button>
+                </td>
+               </tr>
+            </table>
           </ion-col>
 
 
-              <ion-col size="2">
-                <ion-button (click)="clickOrden()" expand="block" fill="clear" shape="round">
-                
-                  <ion-icon name="volume-high"></ion-icon>
-                </ion-button>
-              
 
-                
-              </ion-col>              
             </ion-row>
             <!--
         </ion-grid>
@@ -40,6 +42,27 @@
 
 
     </ion-item>
+  
+      <ion-item>
+        <ion-row>
+          <ion-col col-auto>
+              <table>
+                  <tr>
+                    <td>
+          <ion-label>La palabra es: </ion-label>
+        </td>
+        <td>
+          <ion-button (click)="clickAuResp()" expand="block" fill="clear" shape="round">
+            <ion-icon name="ear"></ion-icon>
+          </ion-button>
+        </td>
+      </tr>
+  </table>
+  </ion-col>
+</ion-row>
+
+    </ion-item>
+  
     <ion-item>
       <ion-grid>
   
@@ -83,7 +106,7 @@
         
         <ion-row>
           <ion-col size="4" *ngFor="let imagen of imagenes;let i = index">
-            <ion-card button (click)="cardClick($event)" id ="card{{i}}" class="animate__animated animate__heartBeat" style="display: flex; align-items: center;justify-content: center;">
+            <ion-card [disabled]="icdis" button (click)="cardClick($event)" id ="card{{i}}" class="animate__animated animate__heartBeat" style="display: flex; align-items: center;justify-content: center;">
               <img style="display: flex; align-items: center;justify-content: center;" id="img{{i}}" src="{{imagen}}"> <!--[width]="ancho" [height]="alto"-->
             </ion-card>
           </ion-col>
