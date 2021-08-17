@@ -29,6 +29,7 @@ enablemic:boolean=true;
 txtorden:string="Adivina y pronuncia la palabra que se forma con los siguientes sonidos. ";
 
 audio;
+timerId;
 numPr=0;
 
 constructor(private sr: SpeechRecognition, private router: Router) { 
@@ -47,6 +48,7 @@ ngOnInit() {
 
 cardClick(ev){ //Evento de click que carga la imagen principal
   this.audio.pause(); 
+  clearTimeout(this.timerId);
   var id:string = ev.target.id;
     id = id.replace('img','')
     var audiocard=this.imagenes[id].replace('img','aupalabra');
@@ -56,15 +58,15 @@ cardClick(ev){ //Evento de click que carga la imagen principal
     this.audio = new Audio(audiocard);
     this.audio.load();
     this.audio.play();
-    setTimeout(() => {  
+    this.timerId=setTimeout(() => {  
     this.comprobarRespuesta(id);
-    }, 1800);
+    }, 2000);
 }pregunta2
 
 clickmic(){ //Evento de click en mic
 
   this.audio.pause();
-  var txt = this.recVoz.startListening();
+   var txt =  this.recVoz.startListening();
   alert("dice: "+txt);
   alert("coindicencia de: "+this.recVoz.similarity(this.act.obtenerTextoPregunta(),txt))
   if (this.recVoz.similarity(this.act.obtenerTextoPregunta(),txt) >= 0.5){
@@ -103,20 +105,20 @@ clickAuResp(){
       this.audio = new Audio('assets/auordenes/LoHicMuyBien.m4a');
       this.audio.load();
       this.audio.play();
-      alert("Muy bien.");   
       this.enabledI = true;
     }
     else{
       this.audio = new Audio('assets/auordenes/IntDeNue.m4a');
       this.audio.load();
       this.audio.play();
-      alert("Inténtalo de nuevo.")
     }
 
   }    
 
   siguientePregunta(){ //cambia a la nueva pregunta
-    
+    this.audio.pause();  
+    clearTimeout(this.timerId);
+
     if(this.numPr==this.act.arregloResp.length)
     {
     this.router.navigate(['/pregunta3']);
@@ -125,29 +127,31 @@ clickAuResp(){
     {   
       this.numPr++;
     var time: number = 0;
-    if (this.act.obtenerNumPregunta()==0)
+    if (this.act.obtenerNumPregunta()==-1)
     time=6500;
     else time=0;
       this.source="";
       this.acActual = ''+(this.act.obtenerNumPregunta()+2);
       this.imagenes = this.act.siguiente();
       //console.log(this.imagenes);
-      setTimeout(() => {   
+      this.timerId = setTimeout(() => {   
         this.audio.pause();       
         this.audio = new Audio('assets/auordenes/LaPalEs.m4a');
         this.audio.load();
         this.audio.play();
-    setTimeout(() => {          
+    this.timerId=setTimeout(() => {     
+      this.audio.pause();       
       this.audio= new Audio(this.act.obtenerRespAudioLetras());
       this.audio.load();
       this.audio.play();
-              }, 2000);   
+              }, 2300);   
   }, time); 
             }
     }
 
   skip(ev){
     this.audio.pause();
+    clearTimeout(this.timerId);
     if(ev.detail.checked){
       this.txtorden="Adivina y pronuncia la palabra que se forma con los siguientes sonidos. ";
       this.audio = new Audio('assets/auordenes/fonemica.m4a'); //Orden inicial alternativo
@@ -164,6 +168,18 @@ clickAuResp(){
     }
     this.audio.load();
     this.audio.play();
+    this.timerId=setTimeout(() => {   
+      this.audio.pause();       
+      this.audio = new Audio('assets/auordenes/LaPalEs.m4a');
+      this.audio.load();
+      this.audio.play();
+  this.timerId= setTimeout(() => {       
+    this.audio.pause();     
+    this.audio= new Audio(this.act.obtenerRespAudioLetras());
+    this.audio.load();
+    this.audio.play();
+            }, 2200);   
+}, 7500); 
   }    
 }
 

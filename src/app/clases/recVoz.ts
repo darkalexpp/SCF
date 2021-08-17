@@ -29,7 +29,7 @@ export class recVoz{
    
      startListening() {
        this.sr.startListening().subscribe((speeches) => {
-         alert(speeches[0]);
+     //    alert(speeches[0]);
          return speeches[0];
        }, (err) => {
          alert(JSON.stringify(err));
