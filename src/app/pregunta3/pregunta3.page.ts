@@ -71,28 +71,41 @@ export class Pregunta3Page implements OnInit {
   cardClick(ev) //Evento de click que carga la imagen principal
   {
     var name:string = ev.target.id;
-    //name = name.replace('card','img')
+    //console.log("name: "+name);
+    //name = name.replace("card","img");
     //var input = document.getElementById(name);
     //var srcAttr = input.getAttribute('src');
     //this.source=srcAttr;//estabelece imagen grande
     //this.enabledM=true;
 
-    //name = ev.target.id;
 
-    let id = name.replace('img','')
+
+
+    
+
+    let id = name.replace('card','');
+    id = id.replace('img','');
+    console.log("id: "+id);
     var audiocard=this.imagenes[id].replace('img','aupalabra');
     audiocard=audiocard.replace('png','m4a');
     //console.log( audiocard); 
 
+    ///this.audio.pause();
     this.stopAudio();
     this.audiop = new Audio(audiocard);
     this.audiop.load();
-    this.audiop.play();
+    this.audiop.play().catch(function() {
+      console.log("printeado")
+  });;
     clearTimeout(this.timerId); 
     setTimeout(() => {  
     this.comprobarRespuesta(id);
     }, 1800);
 
+
+
+    //let id: string =  name.slice(3); //id de la opcion seleccionada
+    //this.comprobarRespuesta(id);
     
   }
 
@@ -105,7 +118,9 @@ export class Pregunta3Page implements OnInit {
       
       if(this.numPr==this.act.arregloResp.length)
       {
-      this.router.navigate(['/home']);
+        this.stopAudio();
+        clearTimeout(this.timerId);
+        this.router.navigate(['/home']);
       }
       else
       {
@@ -119,7 +134,10 @@ export class Pregunta3Page implements OnInit {
         this.imagenes = this.act.siguiente();
         this.source = this.act.obtenerFuentePreguntaRima().dirImagen.toString();
         this.numPr++;
-        this.clickOrden();
+        if(this.numPr>1)
+        this.clickOrden(false);
+        else
+        this.clickOrden(true);
         
       }
     }
@@ -127,122 +145,164 @@ export class Pregunta3Page implements OnInit {
     comprobarRespuesta(id) //comprueba la respuesta correcta
     {
 
-      
+     
       if(id==this.act.obtenerRespuestaCorrecta())
       {
-        //alert("Muy bien.");
-        //this.txtsp.texto = "Muy bien.";
-        //this.txtsp.sonido();
-        //this.siguientePregunta()
         clearTimeout(this.timerId);
         this.timerId = setTimeout(() => {          
           this.audior1= new Audio('assets/auordenes/LoHicMuyBien.m4a');
           this.audior1.load();
-          this.audior1.play();
-                  }, 0);          
+          this.audior1.play().catch(function() {
+            //console.log("printeado")
+        });;
+                  }, 0);  
+                  /*
+        this.audio = new Audio('assets/auordenes/LoHicMuyBien.m4a');
+        this.audio.load();
+        this.audio.play();*/
+        //alert("Muy bien.");           
+        //alert("Muy bien.");
+        //this.txtsp.texto = "Muy bien.";
+        //this.txtsp.sonido();
+        //this.siguientePregunta()
       }
       else{
         
-        clearTimeout(this.timerId);
-        this.timerId =  setTimeout(() => {          
-        this.audior2= new Audio('assets/auordenes/IntDeNue.m4a');
-        this.audior2.load();
-        this.audior2.play();
-                }, 0); 
+        //alert("Inténtalo de nuevo.");
+        //this.txtsp.texto = "Inténtalo de nuevo.";
+        //this.txtsp.sonido();
+
+          clearTimeout(this.timerId);
+          this.timerId =  setTimeout(() => {          
+          this.audior2= new Audio('assets/auordenes/IntDeNue.m4a');
+          this.audior2.load();
+          this.audior2.play().catch(function() {
+            //console.log("printeado")
+        });;
+                  }, 0);  
       }
-      this.enabledM=false;
+     
     }
  
     
-  clickOrden(){
-  //this.audio.pause();
-    this.stopAudio();
-    //this.audio.currentTime = 0;
-    //this.audio = new Audio('');
-  
-    
-    clearTimeout(this.timerId);
-    this.timerId = setTimeout(() => {   
-    this.audioi1.pause();       
-    this.audioi1 = new Audio('assets/auordenes/silabica.m4a');
-    this.audioi1.load();
-    this.audioi1.play();
-
-    clearTimeout(this.timerId);  
-    this.timerId = setTimeout(() => {          
-      this.audioi2= new Audio('assets/auordenes/LaPalEs.m4a');
-      this.audioi2.load();
-      this.audioi2.play();
-
-
-      clearTimeout(this.timerId);  
-      this.timerId =setTimeout(() => {          
-        this.audio= new Audio(this.act.obtenerRespAudioLetras());
-        this.audio.load();
-        this.audio.play();
-
-        this.icdis = false;
-        
-      }, 2000);  
-    }, 9500);   
-    }, 3000); 
-
-  }
-
-
-    setTam()
-    {
-      this.platform.ready().then(() => {
-        console.log('Width: ' + this.platform.width());
-
-        let a:number =this.platform.width();
-        //console.log('Height: ' + this.platform.height());
-        //this.alto = (""+this.platform.height());
-        a = a*0.20
-        this.alto=a+"";
-        this.ancho=a+"";
-
-          });
-
       
-    }
+  clickOrden(v: boolean){
+ 
 
-    clickAuResp()
-    {
-      //this.audio.pause();
-      this.stopAudio();
+  //this.audio.pause();
+  this.stopAudio();
+  //this.audio.currentTime = 0;
+  //this.audio = new Audio('');
+ 
+ var or='assets/auordenes/intrasilabica.m4a';
+  var t=1000;
+  var t2=4500;
+  if(v==false)
+  {
+    //or='';
+    t=0;
+    t2=0;
+  }
+ 
+clearTimeout(this.timerId);
+this.timerId = setTimeout(() => {   
+this.audioi1.pause();       
+this.audioi1 = new Audio(or);
+this.audioi1.load();
+this.audioi1.play().catch(function() {
+  //console.log("printeado")
+});;
+if(v==false)
+  this.audioi1.pause();
 
-      clearTimeout(this.timerId);
-      this.timerId = this.timerId = setTimeout(() => {          
-        this.audioi2= new Audio('assets/auordenes/LaPalEs.m4a');
-        this.audioi2.load();
-        this.audioi2.play();
+clearTimeout(this.timerId);  
+this.timerId = setTimeout(() => {          
+  this.audioi2= new Audio('assets/auordenes/LaPalEs.m4a');
+  this.audioi2.load();
+  this.audioi2.play().catch(function() {
+    //console.log("printeado")
+});
 
-        clearTimeout(this.timerId);
-        this.timerId = setTimeout(() => {          
-          this.audio= new Audio(this.act.obtenerRespAudioLetras());
-          this.audio.load();
-          this.audio.play();
+
+  clearTimeout(this.timerId);  
+  this.timerId =setTimeout(() => {          
+    this.audio= new Audio(this.act.obtenerFuentePreguntaRima().audioSilabas.toString());
+    this.audio.load();
+    this.audio.play().catch(function() {
+      //console.log("printeado")
+  });;
+
+    this.icdis = false;
     
-          this.icdis = false;
-        }, 2000);  
-      }, 1000);   
-    }
+  }, 2500);  
+}, t2);   
+}, t); 
 
-    stopAudio()
-    {
-      this.audio.pause();
-      this.audioi1.pause();
-      this.audioi2.pause();
-      this.audior1.pause();
-      //this.audior1.currentTime = 0;
-      this.audior2.pause();
-      //this.audior2.currentTime = 0;
-      this.audiop.pause();
-  
-    
 
-    }
+
+}
+
+
+setTam()
+{
+this.platform.ready().then(() => {
+  console.log('Width: ' + this.platform.width());
+  console.log('Width: ' + this.platform.height());
+
+  let b:number =this.platform.width();
+  let a:number =this.platform.height();
+  //console.log('Height: ' + this.platform.height());
+  //this.alto = (""+this.platform.height());
+  a = a*0.5;
+  b = b*0.5;
+  this.alto=a+"";
+  this.ancho=b+"";
+
+    });
+
+
+}
+
+clickAuResp()
+{
+//this.audio.pause();
+this.stopAudio();
+
+clearTimeout(this.timerId);
+this.timerId = this.timerId = setTimeout(() => {          
+  this.audioi2= new Audio('assets/auordenes/LaPalEs.m4a');
+  this.audioi2.load();
+  this.audioi2.play().catch(function() {
+    //console.log("printeado")
+});;
+
+  clearTimeout(this.timerId);
+  this.timerId = setTimeout(() => {          
+    this.audio= new Audio(this.act.obtenerFuentePreguntaRima().audioSilabas.toString());
+    this.audio.load();
+    this.audio.play().catch(function() {
+      //console.log("printeado")
+  });;
+
+    this.icdis = false;
+  }, 2000);  
+}, 1000);   
+}
+
+stopAudio()
+{
+this.audio.pause();
+this.audioi1.pause();
+this.audioi2.pause();
+this.audior1.pause();
+//this.audior1.currentTime = 0;
+this.audior2.pause();
+//this.audior2.currentTime = 0;
+this.audiop.pause();
+
+
+
+}
     
 }
 

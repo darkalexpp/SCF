@@ -20,7 +20,7 @@ export class Pregunta1Page implements OnInit {
 
 
   imagenes: string [];
-  enabledM=false;
+
 
   
   numPr=0;
@@ -28,7 +28,6 @@ export class Pregunta1Page implements OnInit {
   acActual:string;
   NacTotal:string;
 
-  source="";
   alto="";
   ancho="";
   audioi1;
@@ -58,7 +57,7 @@ export class Pregunta1Page implements OnInit {
 
     this.audio = new Audio('');
     this.NacTotal=this.act.obtenerNumTotalPreguntas()+'';
-    //this.setTam(); setear tamaño basado en los pixeles
+    //this.setTam(); //setear tamaño basado en los pixeles
     this.siguientePregunta();
 
 
@@ -68,18 +67,21 @@ export class Pregunta1Page implements OnInit {
   cardClick(ev) //Evento de click que carga la imagen principal
   {
     var name:string = ev.target.id;
-    name = name.replace('card','img')
-    var input = document.getElementById(name);
-    var srcAttr = input.getAttribute('src');
-    this.source=srcAttr;//estabelece imagen grande
-    this.enabledM=true;
+    //console.log("name: "+name);
+    //name = name.replace("card","img");
+    //var input = document.getElementById(name);
+    //var srcAttr = input.getAttribute('src');
+    //this.source=srcAttr;//estabelece imagen grande
+    //this.enabledM=true;
 
 
 
 
-    name = ev.target.id;
+    
 
-    let id = name.replace('img','')
+    let id = name.replace('card','');
+    id = id.replace('img','');
+    console.log("id: "+id);
     var audiocard=this.imagenes[id].replace('img','aupalabra');
     audiocard=audiocard.replace('png','m4a');
     //console.log( audiocard); 
@@ -88,7 +90,9 @@ export class Pregunta1Page implements OnInit {
     this.stopAudio();
     this.audiop = new Audio(audiocard);
     this.audiop.load();
-    this.audiop.play();
+    this.audiop.play().catch(function() {
+      console.log("printeado")
+  });;
     clearTimeout(this.timerId); 
     setTimeout(() => {  
     this.comprobarRespuesta(id);
@@ -109,27 +113,32 @@ export class Pregunta1Page implements OnInit {
     {
       if(this.numPr==this.act.arregloResp.length)
       {
-      this.router.navigate(['/pregunta2']);
+        this.stopAudio();
+        clearTimeout(this.timerId);
+        this.router.navigate(['/pregunta2']);
+      
       }
       else
       {
         this.icdis = true;
         //this.source="";
-        this.enabledM=false;
+        
         //this.acActual = ''+(this.act.obtenerNumPregunta()+2);
         //this.imagenes = this.act.siguiente();
         this.numPr++;
       
-        var time: number = 0;
+        
         //if (this.act.obtenerNumPregunta()==0)
         
         //else time=0;
-          this.source="";
+          
           this.acActual = ''+(this.act.obtenerNumPregunta()+2);
           this.imagenes = this.act.siguiente();
           //console.log(this.imagenes);
-          this.clickOrden();
-      
+          if(this.numPr>1)
+          this.clickOrden(false);
+          else
+          this.clickOrden(true);
       }      
       }
 
@@ -140,14 +149,16 @@ export class Pregunta1Page implements OnInit {
     comprobarRespuesta(id) //comprueba la respuesta correcta
     {
 
-      this.enabledM=true;
+     
       if(id==this.act.obtenerRespuestaCorrecta())
       {
         clearTimeout(this.timerId);
         this.timerId = setTimeout(() => {          
           this.audior1= new Audio('assets/auordenes/LoHicMuyBien.m4a');
           this.audior1.load();
-          this.audior1.play();
+          this.audior1.play().catch(function() {
+            //console.log("printeado")
+        });;
                   }, 0);  
                   /*
         this.audio = new Audio('assets/auordenes/LoHicMuyBien.m4a');
@@ -169,14 +180,16 @@ export class Pregunta1Page implements OnInit {
           this.timerId =  setTimeout(() => {          
           this.audior2= new Audio('assets/auordenes/IntDeNue.m4a');
           this.audior2.load();
-          this.audior2.play();
+          this.audior2.play().catch(function() {
+            //console.log("printeado")
+        });;
                   }, 0);  
       }
-      this.enabledM=false;
+     
     }
  
     
-clickOrden(){
+  clickOrden(v: boolean){
  
 
         //this.audio.pause();
@@ -184,32 +197,50 @@ clickOrden(){
         //this.audio.currentTime = 0;
         //this.audio = new Audio('');
        
+       var or='assets/auordenes/silabica.m4a';
+        var t=1000;
+        var t2=9500;
+        if(v==false)
+        {
+          //or='';
+          t=0;
+          t2=0;
+        }
        
       clearTimeout(this.timerId);
       this.timerId = setTimeout(() => {   
       this.audioi1.pause();       
-      this.audioi1 = new Audio('assets/auordenes/silabica.m4a');
+      this.audioi1 = new Audio(or);
       this.audioi1.load();
-      this.audioi1.play();
+      this.audioi1.play().catch(function() {
+        //console.log("printeado")
+    });;
+      if(v==false)
+        this.audioi1.pause();
 
       clearTimeout(this.timerId);  
       this.timerId = setTimeout(() => {          
         this.audioi2= new Audio('assets/auordenes/LaPalEs.m4a');
         this.audioi2.load();
-        this.audioi2.play();
+        this.audioi2.play().catch(function() {
+          //console.log("printeado")
+      });
 
 
         clearTimeout(this.timerId);  
         this.timerId =setTimeout(() => {          
-          this.audio= new Audio(this.act.obtenerRespAudioLetras());
+          this.audio= new Audio(this.act.obtenerRespAudioSilabas());
           this.audio.load();
-          this.audio.play();
+          this.audio.play().catch(function() {
+            //console.log("printeado")
+        });;
     
           this.icdis = false;
           
         }, 2000);  
-      }, 9500);   
-    }, 3000); 
+      }, t2);   
+    }, t); 
+  
 
 
   }
@@ -219,13 +250,16 @@ clickOrden(){
     {
       this.platform.ready().then(() => {
         console.log('Width: ' + this.platform.width());
+        console.log('Width: ' + this.platform.height());
 
-        let a:number =this.platform.width();
+        let b:number =this.platform.width();
+        let a:number =this.platform.height();
         //console.log('Height: ' + this.platform.height());
         //this.alto = (""+this.platform.height());
-        a = a*0.20
+        a = a*0.5;
+        b = b*0.5;
         this.alto=a+"";
-        this.ancho=a+"";
+        this.ancho=b+"";
 
           });
 
@@ -241,13 +275,17 @@ clickOrden(){
       this.timerId = this.timerId = setTimeout(() => {          
         this.audioi2= new Audio('assets/auordenes/LaPalEs.m4a');
         this.audioi2.load();
-        this.audioi2.play();
+        this.audioi2.play().catch(function() {
+          //console.log("printeado")
+      });;
 
         clearTimeout(this.timerId);
         this.timerId = setTimeout(() => {          
-          this.audio= new Audio(this.act.obtenerRespAudioLetras());
+          this.audio= new Audio(this.act.obtenerRespAudioSilabas());
           this.audio.load();
-          this.audio.play();
+          this.audio.play().catch(function() {
+            //console.log("printeado")
+        });;
     
           this.icdis = false;
         }, 2000);  

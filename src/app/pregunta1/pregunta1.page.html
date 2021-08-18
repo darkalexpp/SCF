@@ -9,22 +9,27 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
-  <ion-list>
-    <ion-item>
+<ion-content scrollY="false">
+  <ion-grid style="height: 100%; display: flex; flex-flow: column;">
+    
       <ion-row>
         
           <ion-col size="12">
             <table>
               <tr>
                 <td>
-                   <ion-label style="font-size: 40%;">Adivina y pronuncia la palabra que correponde a la siguiente secuencia de sílabas escuchadas</ion-label>
+                   <ion-label style="font-size: 80%;">Adivina y selecciona la imagen que correponde a la siguiente secuencia de sílabas escuchadas</ion-label>
                 </td>
                 <td>
-                  <ion-button (click)="clickOrden()" expand="block" fill="clear" shape="round">
-                
-                  <ion-icon name="volume-high"></ion-icon>
-                  </ion-button>
+                  
+                   
+                  
+                    <ion-button (click)="clickOrden(true)" expand="block" fill="clear" shape="round" size="small">
+                     
+                      <ion-icon name="volume-high"></ion-icon>
+                    
+                    </ion-button>
+                  
                 </td>
                </tr>
             </table>
@@ -32,7 +37,7 @@
 
 
 
-            </ion-row>
+      </ion-row>
             <!--
         </ion-grid>
     <ion-button (click)="clickOrden()" expand="block" fill="clear" shape="round">
@@ -41,77 +46,53 @@
     -->
 
 
-    </ion-item>
+    
   
-      <ion-item>
+      
         <ion-row>
           <ion-col col-auto>
               <table>
                   <tr>
+                    
                     <td>
-          <ion-label>La palabra es: </ion-label>
-        </td>
-        <td>
-          <ion-button (click)="clickAuResp()" expand="block" fill="clear" shape="round">
-            <ion-icon name="ear"></ion-icon>
-          </ion-button>
-        </td>
-      </tr>
-  </table>
-  </ion-col>
-</ion-row>
-
-    </ion-item>
-  
-    <ion-item>
-      <ion-grid>
-  
-        <ion-row *ngIf="enabledM">
-          <ion-col size="4">
-            
-          </ion-col>
-          <ion-col col-auto>
-    
-            <ion-card >
-              <img style="display: flex; align-items: center;justify-content: center;" id="imgPadre1" [src]="source"> <!-- [src]="source" [width]="ancho" [height]="alto" #imgP-->
-            </ion-card>
-          </ion-col>
-          <ion-col size="4">
-            
-          </ion-col>         
-  
-            
-          
+                      <ion-label style="font-size: 80%;">La palabra es: </ion-label>
+                    </td>
+                    <td>
+                      
+                      <ion-button (click)="clickAuResp()" expand="block" fill="clear" shape="round" size="small">
+                       <!-- <ion-label style="color: white; font-size: 100%;">La palabra es: </ion-label>-->
+                        <ion-icon name="volume-high"></ion-icon>
+                      
+                      </ion-button>
+                    
+                    </td>
+                  </tr>
+                </table>
+            </ion-col>
         </ion-row>
 
-      </ion-grid>    
-    </ion-item>
+  
+
     
     
-  
-  </ion-list>
-  <!--
-      <ion-label>Prgeunta</ion-label>
-  -->
-   
-     
     
   
-  </ion-content>
-  <ion-footer>
-    <ion-item>
-      <ion-grid>
-  
+ 
+    
+
+    
       
-        
-        <ion-row>
-          <ion-col size="4" *ngFor="let imagen of imagenes;let i = index">
-            <ion-card [disabled]="icdis" button (click)="cardClick($event)" id ="card{{i}}" class="animate__animated animate__heartBeat" style="display: flex; align-items: center;justify-content: center;">
-              <img style="display: flex; align-items: center;justify-content: center;" id="img{{i}}" src="{{imagen}}"> <!--[width]="ancho" [height]="alto"-->
-            </ion-card>
-          </ion-col>
-        </ion-row>
-      </ion-grid>    
-    </ion-item>
-  </ion-footer>
+      <ion-row style="flex-grow: 1;">
+        <ion-col col-auto  *ngFor="let imagen of imagenes;let i = index" style="display: flex;">
+          <ion-card style="aspect-ratio: 1/1; align-items: center; display: flex;" [disabled]="icdis" button (click)="cardClick($event)" id ="card{{i}}" class="animate__animated animate__heartBeat">
+            <ion-img style="aspect-ratio: 1/1; background-color: white; border-radius: 20%;" id="img{{i}}" src="{{imagen}}"></ion-img>   <!--[width]="ancho" [height]="alto"-->
+          </ion-card>
+        </ion-col>
+      </ion-row>
+      
+
+  </ion-grid>
+ 
+</ion-content>
+
   

@@ -49,8 +49,10 @@ ngOnInit() {
 cardClick(ev){ //Evento de click que carga la imagen principal
   this.audio.pause(); 
   clearTimeout(this.timerId);
-  var id:string = ev.target.id;
-    id = id.replace('img','')
+    var n:string = ev.target.id;
+    let id:string = n.replace('card','');
+    id = id.replace('img','');
+    
     var audiocard=this.imagenes[id].replace('img','aupalabra');
     audiocard=audiocard.replace('png','m4a');
     console.log( audiocard); 
@@ -61,7 +63,7 @@ cardClick(ev){ //Evento de click que carga la imagen principal
     this.timerId=setTimeout(() => {  
     this.comprobarRespuesta(id);
     }, 2000);
-}pregunta2
+}
 
 clickmic(){ //Evento de click en mic
 

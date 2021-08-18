@@ -157,8 +157,8 @@ export class actividad{
 /////
     insertarRimas()
     {
-      var arr = this.arreglo_preguntas;//arregla esto
-      console.log(this.recursos_rima);
+      //var arr = this.arreglo_preguntas;//arregla esto
+      //console.log(this.recursos_rima);
       for(let i=0;i<this.arreglo_preguntas.length;i++)
       {
 
@@ -169,12 +169,13 @@ export class actividad{
         r.audioSilabas = '/assets/ausilaba/'+this.recursos_rima[1][i]+'.m4a';
         r.audioLetras = '/assets/auletra/'+this.recursos_rima[1][i]+'.m4a';
 
-        arr[i][this.arregloResp[i]] = r;
+        this.arreglo_preguntas[i][this.arregloResp[i]] = r;
+        //this.arregloResp[i]= 
 
 
       }
 
-      console.log(arr);
+      //console.log(arr);
       
     }
 
@@ -198,6 +199,11 @@ export class actividad{
 
       
       return r;
+    }
+
+    obtenerRespAudioSilabas()
+    {
+      return this.arreglo_preguntas[this.numPreg][this.obtenerRespuestaCorrecta()].audioSilabas;
     }
 
 
