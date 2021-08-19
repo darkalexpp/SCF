@@ -37,8 +37,7 @@ constructor(private sr: SpeechRecognition, private router: Router) {
   this.act = new actividad(this.ra,preferencias.CFActividades,3);
 }
 ngOnInit() {
-
-  this.audio = new Audio('assets/auordenes/fonemica.m4a'); //Audio orden inicial
+  this.audio = new Audio('assets/auordenes/fonemica.m4a'); //Orden inicial alternativo
   this.audio.load();
   this.audio.play();
   this.NacTotal=this.act.obtenerNumTotalPreguntas()+'';
@@ -68,18 +67,29 @@ cardClick(ev){ //Evento de click que carga la imagen principal
 clickmic(){ //Evento de click en mic
 
   this.audio.pause();
-   var txt =  this.recVoz.startListening();
-  alert("dice: "+txt);
-  alert("coindicencia de: "+this.recVoz.similarity(this.act.obtenerTextoPregunta(),txt))
-  if (this.recVoz.similarity(this.act.obtenerTextoPregunta(),txt) >= 0.5){
-    this.audio = new Audio('assets/auordenes/LoHicMuyBien.m4a');
-    this.audio.load();
-    this.audio.play();
-  }else{
-    this.audio = new Audio('assets/auordenes/IntDeNue.m4a');
-    this.audio.load();
-    this.audio.play();
-  }
+  var txt;
+  // var txt =  this.recVoz.startListening();
+  this.sr.startListening().subscribe((speeches) => {
+        alert(speeches[0]);
+        txt = speeches[0];
+        console.log("dice: "+txt);
+        console.log("coindicencia de: "+this.recVoz.similarity(this.act.obtenerTextoPregunta(),txt))
+        if (this.recVoz.similarity(this.act.obtenerTextoPregunta(),txt) >= 0.5){
+          this.audio = new Audio('assets/auordenes/LoHicMuyBien.m4a');
+          this.audio.load();
+          this.audio.play();
+        }else{
+          this.audio = new Audio('assets/auordenes/IntDeNue.m4a');
+          this.audio.load();
+          this.audio.play();
+        }
+      }, (err) => {
+        alert(JSON.stringify(err));
+       // return "error";
+      });
+
+
+
 }
 
 clickOrden(){
@@ -118,7 +128,7 @@ clickAuResp(){
   }    
 
   siguientePregunta(){ //cambia a la nueva pregunta
-    this.audio.pause();  
+    
     clearTimeout(this.timerId);
 
     if(this.numPr==this.act.arregloResp.length)
@@ -129,8 +139,9 @@ clickAuResp(){
     {   
       this.numPr++;
     var time: number = 0;
-    if (this.act.obtenerNumPregunta()==-1)
-    time=6500;
+    //if (this.act.obtenerNumPregunta()==0)
+    if (this.numPr==1)
+    time=7000;
     else time=0;
       this.source="";
       this.acActual = ''+(this.act.obtenerNumPregunta()+2);
@@ -146,7 +157,7 @@ clickAuResp(){
       this.audio= new Audio(this.act.obtenerRespAudioLetras());
       this.audio.load();
       this.audio.play();
-              }, 2300);   
+              }, 2350);   
   }, time); 
             }
     }

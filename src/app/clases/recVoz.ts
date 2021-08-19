@@ -6,24 +6,26 @@ export class recVoz{
        
     }
 
-    checkPermission() {
+    public checkPermission() {
         this.sr.hasPermission().then((permission) => {
          if (permission) {
-           alert('You have permission for speech recognition');
+          // alert('You have permission for speech recognition');
+           return 1;
          } else {
-           alert('You do not have permission for speech recognition');
+           this.requestPermission();
+          // alert('You do not have permission for speech recognition');
          }
        }, (err) => {
-         alert(JSON.stringify(err));
+         console.log(JSON.stringify(err));
        }
        );
      }
    
      requestPermission() {
        this.sr.requestPermission().then((data) => {
-         alert(JSON.stringify(data));
+        console.log(JSON.stringify(data));
        }, (err) => {
-         alert(JSON.stringify(err));
+        console.log(JSON.stringify(err));
        });
      }
    
@@ -32,7 +34,7 @@ export class recVoz{
      //    alert(speeches[0]);
          return speeches[0];
        }, (err) => {
-         alert(JSON.stringify(err));
+        console.log(JSON.stringify(err));
          return "error";
        });
      }    

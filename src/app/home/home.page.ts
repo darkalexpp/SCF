@@ -4,6 +4,9 @@ import { MenuController } from '@ionic/angular';
 import { StorageService } from '../storage.service';
 
 import { preferencias } from '../clases/preferencias';
+import { recVoz } from '../clases/recVoz';
+import { SpeechRecognition } from '@ionic-native/speech-recognition/ngx';
+
 
 
 
@@ -16,11 +19,12 @@ export class HomePage implements OnInit {
 
   cnt: number;
 
-  constructor(private router: Router, private menu: MenuController,public storageService: StorageService) {
+  constructor(private sr: SpeechRecognition,private router: Router, private menu: MenuController,public storageService: StorageService) {
     this.menu.swipeGesture(true);
     this.cnt=0;
    }
    ngOnInit() {
+    new recVoz(this.sr).checkPermission();
 
     this.storageService.getObject('raCF').then(result => {
       if (result != null) {
