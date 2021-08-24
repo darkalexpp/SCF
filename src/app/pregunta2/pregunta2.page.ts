@@ -70,10 +70,9 @@ clickmic(){ //Evento de click en mic
   var txt;
   // var txt =  this.recVoz.startListening();
   this.sr.startListening().subscribe((speeches) => {
-        alert(speeches[0]);
         txt = speeches[0];
         console.log("dice: "+txt);
-        console.log("coindicencia de: "+this.recVoz.similarity(this.act.obtenerTextoPregunta(),txt))
+        console.log("coincidencia de: "+this.recVoz.similarity(this.act.obtenerTextoPregunta(),txt))
         if (this.recVoz.similarity(this.act.obtenerTextoPregunta(),txt) >= 0.5){
           this.audio = new Audio('assets/auordenes/LoHicMuyBien.m4a');
           this.audio.load();
@@ -133,7 +132,7 @@ clickAuResp(){
 
     if(this.numPr==this.act.arregloResp.length)
     {
-    this.router.navigate(['/pregunta3']);
+    this.router.navigate(['/home']);
     }
     else
     {   

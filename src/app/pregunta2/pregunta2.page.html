@@ -1,6 +1,6 @@
 <ion-header>
   <ion-toolbar color="primary">
-    <ion-title slot="start">Conciencia Silábica</ion-title>
+    <ion-title slot="start">Conciencia Fonémica</ion-title>
     <!--ion-title >{{acActual}}/{{NacTotal}}</ion-title-->
     <ion-button slot="end" (click)="siguientePregunta()" expand="block"shape="round">
       {{acActual}}/{{NacTotal}}
@@ -11,14 +11,12 @@
 
 <ion-content scrollY="false">
   <ion-grid style="height: 100%; display: flex; flex-flow: column;">
-
       <ion-row>
         <ion-col col-auto>
-
             <table>
                 <tr>
                   <td>
-        <ion-label style="font-size: 100%;">{{txtorden}}</ion-label>
+        <ion-label style="font-size: 80%;">{{txtorden}}</ion-label>
       </td>
       <td>
         <ion-button (click)="clickOrden()" expand="block" fill="clear" shape="round">
@@ -30,18 +28,17 @@
 
 </ion-col>
 </ion-row>
-
       <ion-row>
         <ion-col col-auto>
           <ion-item>
             <table>
                 <tr>
                   <td>
-        <ion-label>La palabra es: </ion-label>
+        <ion-label style="font-size: 80%;">La palabra es: </ion-label>
       </td>
       <td>
         <ion-button (click)="clickAuResp()" expand="block" fill="clear" shape="round">
-          <ion-icon name="volume-high"></ion-icon>
+          <ion-icon color="secondary" name="volume-high"></ion-icon>
         </ion-button>
       </td>
     </tr>
