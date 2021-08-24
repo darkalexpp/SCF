@@ -2,7 +2,7 @@
   <ion-toolbar color="primary">
     <ion-title slot="start" [style.font-size.%]="txtSize+30">Conciencia Silábica</ion-title>
     <!--ion-title >{{acActual}}/{{NacTotal}}</ion-title-->
-    <ion-button slot="end" (click)="siguientePregunta()" expand="block"shape="round">
+    <ion-button slot="end" (click)="siguientePregunta()" expand="block"shape="round" [style.font-size.%]="txtSize">
       {{acActual}}/{{NacTotal}}
       <ion-icon name="arrow-forward-outline"></ion-icon>
     </ion-button>

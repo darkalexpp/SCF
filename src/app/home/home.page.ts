@@ -49,6 +49,13 @@ export class HomePage implements OnInit {
         }
         }).catch(e => {
         console.log('error: '+ e);  });  
+
+        this.storageService.get('txtSize').then(result => {
+          if (result != null) {
+          preferencias.txtsize=result;
+          }
+          }).catch(e => {
+          console.log('error: '+ e);  });
 }
 
   navigate(){

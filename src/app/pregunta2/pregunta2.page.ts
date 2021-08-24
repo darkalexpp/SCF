@@ -27,6 +27,7 @@ acActual:string;
 NacTotal:string;
 enablemic:boolean=true;
 txtorden:string="Adivina y pronuncia la palabra que se forma con los siguientes sonidos. ";
+txtSize=preferencias.txtsize;
 
 audio;
 timerId;

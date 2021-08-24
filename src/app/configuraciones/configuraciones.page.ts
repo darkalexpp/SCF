@@ -103,6 +103,8 @@ this.storageService.setObject('CheckboxesCS', this.CheckboxesCS).then(result => 
 console.log("error: " + e);
 });
 
+
+
 this.router.navigate(['/home'])
   }
 }
