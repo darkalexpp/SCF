@@ -15,8 +15,8 @@ export class preferencias{
     public static raCI2 = [['luna','rama'],['cuna','cama']];
     public static raCI1= ['barco','cangrejo','caramelo','conejo','escalera','escoba'];
 
-    public static raCS1= ['barco','oso','pera','dado','sandía','mapa'];
-    public static raCS2 = [['casa','escoba','arpa','cocodrilo'],['carro','escalera','araña','coco']];
+    public static raCS1= ['barco','oso','pera','dado','mapa','arpa'];
+    public static raCS2 = [['casa','escoba','sandía','cocodrilo'],['carro','escalera','sandalia','coco']];
 }
 
 
