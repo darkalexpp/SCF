@@ -81,7 +81,7 @@ export class Pregunta21Page implements OnInit {
       ctx.clearRect(0, 0, this.canvasElement.width, this.canvasElement.height);
   }
 
-  startDrawing(ev) {
+  startDrawing(ev, t) {
 
     this.drawing=true;
  
@@ -98,12 +98,16 @@ export class Pregunta21Page implements OnInit {
     
     this.canvasElement = c1.nativeElement;
     var canvasPosition = this.canvasElement.getBoundingClientRect();
-   
+    if (t==1){
     this.saveX = ev.pageX - canvasPosition.x;
     this.saveY = ev.pageY - canvasPosition.y;
+    }else{
+      this.saveX = ev.touches[0].pageX - canvasPosition.x;
+      this.saveY = ev.touches[0].pageY - canvasPosition.y;
+    }
   }
    
-  moved(ev) {
+  moved(ev, t) {
     if (!this.drawing) 
     return;
 
@@ -119,9 +123,15 @@ export class Pregunta21Page implements OnInit {
     var canvasPosition = this.canvasElement.getBoundingClientRect();
    
     let ctx = this.canvasElement.getContext('2d');
-    let currentX = ev.pageX - canvasPosition.x;
-    let currentY = ev.pageY - canvasPosition.y;
-   
+    let currentX,currentY;
+    if (t==1){
+    currentX = ev.pageX - canvasPosition.x;
+    currentY = ev.pageY - canvasPosition.y;
+    }else{
+    currentX = ev.touches[0].pageX - canvasPosition.x;
+    currentY = ev.touches[0].pageY - canvasPosition.y;
+    }
+
     ctx.lineJoin = 'round';
     ctx.strokeStyle = this.selectedColor;
     ctx.lineWidth = this.tamLinea;

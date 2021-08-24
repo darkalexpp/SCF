@@ -30,8 +30,8 @@
 </ion-row>
   </ion-grid>
     <canvas #imageCanvas style="display: flex;" id="canvas" 
-    (touchstart)="startDrawing($event)" (mousedown)="startDrawing($event)" 
-    (touchmove)="moved($event)" (mousemove)="moved($event)"
+    (touchstart)="startDrawing($event,0)" (mousedown)="startDrawing($event,1)" 
+    (touchmove)="moved($event,0)" (mousemove)="moved($event,1)"
     (touchend)="endDraw()" (mouseup)="endDraw()"
     [width]="ancho" [height]="alto" style="background-color:black; border-radius: 25px;"></canvas>
     
