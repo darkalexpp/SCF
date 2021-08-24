@@ -178,10 +178,46 @@ export class actividad{
       //console.log(arr);
       
     }
+    shuffle() 
+    {
+      this.recursos_rima.sort(() => Math.random() - 0.5);
 
+
+
+          
+          //console.log("j: "+j);
+          for(let i = 0; i < this.recursos_rima[0].length; i++)
+          {
+            let j = Math.floor(Math.random() * (this.recursos_rima[0].length));
+            while(j==i)
+            {
+              j = Math.floor(Math.random() * (this.recursos_rima[0].length));
+            }
+            console.log("i: "+i);
+            console.log("j: "+j);
+            for(let k = 0; k < this.recursos_rima.length; k++)
+            {
+              let temp = this.recursos_rima[k][i].toString();
+
+              console.log("k-i: "+this.recursos_rima[k][i]);
+              console.log("k-j: "+this.recursos_rima[k][j]);
+              this.recursos_rima[k].splice(i,1,this.recursos_rima[k][j].toString());
+              
+              this.recursos_rima[k].splice(j,1,temp);
+
+              console.log("Nuevo k-i: "+this.recursos_rima[k][i]);
+              console.log("Nuevo k-j: "+this.recursos_rima[k][j]);
+            }
+
+            console.log(this.recursos_rima);
+          }
+        
+      
+    }
     establecerRecursosRimas(arr: string [][])
     {
       this.recursos_rima = arr;
+      this.shuffle();
       this.insertarRimas();
     }
 

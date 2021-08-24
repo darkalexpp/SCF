@@ -1,6 +1,6 @@
 <ion-header>
   <ion-toolbar color="primary">
-    <ion-title slot="start">Conciencia Intrasilábica</ion-title>
+    <ion-title slot="start" [style.font-size.%]="txtSize+30">Conciencia Intrasilábica</ion-title>
     <!--ion-title >{{acActual}}/{{NacTotal}}</ion-title-->
     <ion-button slot="end" (click)="siguientePregunta()" expand="block"shape="round">
       {{acActual}}/{{NacTotal}}
@@ -18,7 +18,7 @@
           <table>
             <tr>
               <td>
-                 <ion-label style="font-size: 80%;">Selecciona la imagen que rima con la palabra modelo</ion-label>
+                 <ion-label  [style.font-size.%]="txtSize">Selecciona la imagen que rima con la palabra modelo</ion-label>
               </td>
               <td>
                 
@@ -55,7 +55,7 @@
                 <tr>
                   
                   <td>
-                    <ion-label style="font-size: 80%;">La palabra es: </ion-label>
+                    <ion-label  [style.font-size.%]="txtSize">La palabra es: </ion-label>
                   </td>
                   <td>
                     

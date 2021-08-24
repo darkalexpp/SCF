@@ -1,9 +1,119 @@
 <ion-header>
-  <ion-toolbar>
-    <ion-title>pregunta12</ion-title>
+  <ion-toolbar color="primary">
+    <ion-title slot="start" [style.font-size.%]="txtSize+30">Conciencia Silábica</ion-title>
+    <!--ion-title >{{acActual}}/{{NacTotal}}</ion-title-->
+    <ion-button slot="end" (click)="siguientePregunta()" expand="block"shape="round">
+      {{acActual}}/{{NacTotal}}
+      <ion-icon name="arrow-forward-outline"></ion-icon>
+    </ion-button>
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
+<ion-content scrollY="false">
+  <ion-grid style="height: 100%; display: flex; flex-flow: column;">
+    
+    <ion-row>
+      
+        <ion-col size="12">
+          <table>
+            <tr>
+              <td>
+                 <ion-label  [style.font-size.%]="txtSize">Selecciona la imagen de la palabra que inicia con la misma sílaba de la palabra</ion-label>
+              </td>
+              <td>
+                
+                 
+                
+                  <ion-button (click)="clickOrden(true)" expand="block" fill="clear" shape="round" size="small">
+                   
+                    <ion-icon name="volume-high"></ion-icon>
+                  
+                  </ion-button>
+                
+              </td>
+             </tr>
+          </table>
+        </ion-col>
 
-</ion-content>
+
+
+    </ion-row>
+          <!--
+      </ion-grid>
+  <ion-button (click)="clickOrden()" expand="block" fill="clear" shape="round">
+    <ion-icon name="volume-high"></ion-icon>
+  </ion-button>
+  -->
+
+
+  
+
+    
+      <ion-row>
+        <ion-col col-auto>
+            <table>
+                <tr>
+                  
+                  <td>
+                    <ion-label  [style.font-size.%]="txtSize">La palabra es: </ion-label>
+                  </td>
+                  <td>
+                    
+                    <ion-button (click)="clickOrden(false)" expand="block" fill="clear" shape="round" size="small" color="secondary">
+                     <!-- <ion-label style="color: white; font-size: 100%;">La palabra es: </ion-label>-->
+                      <ion-icon name="volume-high"></ion-icon>
+                    
+                    </ion-button>
+                  
+                  </td>
+                  <td>
+                    <img style="display: flex; align-items: center;justify-content: center;height:50px; width: 50px;" [src]="source">
+                  </td>
+                </tr>
+
+              </table>
+          </ion-col>
+      </ion-row>
+
+
+   
+    
+      
+  <!--
+        <ion-row>
+          <ion-col size="4">
+            
+          </ion-col>
+          <ion-col col-auto>
+    
+            <ion-card >
+              <img style="display: flex; align-items: center;justify-content: center;" [src]="source">--> <!-- [src]="source" [width]="ancho" [height]="alto" #imgP-->
+           <!-- </ion-card>
+          </ion-col>
+          <ion-col size="4">
+            
+          </ion-col>         
+  
+            
+          
+        </ion-row>-->
+        <ion-row style="flex-grow: 1;">
+          <ion-col col-auto  *ngFor="let imagen of imagenes;let i = index" style="display: flex;">
+            <ion-card style="aspect-ratio: 1/1; align-items: center; display: flex;" [disabled]="icdis" button (click)="cardClick($event)" id ="card{{i}}" class="animate__animated animate__heartBeat">
+              <ion-img style="aspect-ratio: 1/1; background-color: white; border-radius: 20%;" id="img{{i}}" src="{{imagen}}"></ion-img>   <!--[width]="ancho" [height]="alto"-->
+            </ion-card>
+          </ion-col>
+        </ion-row>     
+
+      </ion-grid>    
+   
+    
+
+  <!--
+      <ion-label>Prgeunta</ion-label>
+  -->
+   
+     
+    
+  
+  </ion-content>

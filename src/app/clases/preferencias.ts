@@ -1,7 +1,7 @@
 
 export class preferencias{
 
-    public static BaseRecursosAll: string[] = ['araña','arpa','banana','barco','búho','caballo','cangrejo','caramelo','carro','carta','casa','cebolla','coco','cocodrilo','computadora','conejo','dado','durazno','escalera','escoba','fresa','leche','león','limón','llama','loro','mama','manzana','mapa','melocotón','melón','murciélago','naranja','oso','oveja','paloma','pera','piña','sandalia','sandia','sol','sopa','teléfono','teta','uva'];
+    public static BaseRecursosAll: string[] = ['araña','arpa','banana','barco','búho','caballo','cangrejo','caramelo','carro','carta','casa','cebolla','coco','cocodrilo','computadora','conejo','dado','durazno','escalera','escoba','fresa','leche','león','limón','llama','loro','mama','manzana','mapa','melocotón','melón','murciélago','naranja','oso','oveja','paloma','pera','piña','sandalia','sandía','sol','sopa','teléfono','teta','uva'];
     public static CFActividades: number = 4;
     public static CSActividades: number = 4;
     public static CISActividades: number = 4;
@@ -14,6 +14,9 @@ export class preferencias{
     public static raCS= ['barco','cangrejo','caramelo','conejo','escalera','escoba','cocodrilo','murciélago','oso','pera','sandalia','teléfono'];
     public static raCI2 = [['luna','rama'],['cuna','cama']];
     public static raCI1= ['barco','cangrejo','caramelo','conejo','escalera','escoba'];
+
+    public static raCS1= ['barco','oso','pera','dado','sandía','mapa'];
+    public static raCS2 = [['casa','escoba','arpa','cocodrilo'],['carro','escalera','araña','coco']];
 }
 
 

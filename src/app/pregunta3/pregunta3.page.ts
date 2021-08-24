@@ -3,7 +3,7 @@ import { Component, OnInit } from '@angular/core';
 
 
 import { preferencias } from 'src/app/clases/preferencias';
-import { vozTexto } from 'src/app/clases/vozTexto';
+
 import { actividad } from 'src/app/clases/actividad';
 import { Platform } from '@ionic/angular';
 import { Router } from '@angular/router';
@@ -42,6 +42,7 @@ export class Pregunta3Page implements OnInit {
   timerId;
 
   icdis: boolean = true;
+  txtSize=preferencias.txtsize;
 
   //txtsp = new vozTexto(this.tts,'','es-EC',0.60);
 

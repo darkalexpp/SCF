@@ -41,6 +41,7 @@ export class Pregunta1Page implements OnInit {
 
   icdis: boolean = true;
   timerId;
+  txtSize=preferencias.txtsize;
 
   //txtsp = new vozTexto(this.tts,'','es-EC',0.60);
 
@@ -115,7 +116,7 @@ export class Pregunta1Page implements OnInit {
       {
         this.stopAudio();
         clearTimeout(this.timerId);
-        this.router.navigate(['/pregunta3']);
+        this.router.navigate(['/pregunta12']);
       
       }
       else
