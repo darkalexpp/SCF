@@ -115,7 +115,7 @@ export class Pregunta1Page implements OnInit {
       {
         this.stopAudio();
         clearTimeout(this.timerId);
-        this.router.navigate(['/pregunta2']);
+        this.router.navigate(['/pregunta3']);
       
       }
       else
@@ -218,14 +218,6 @@ export class Pregunta1Page implements OnInit {
       if(v==false)
         this.audioi1.pause();
 
-      clearTimeout(this.timerId);  
-      this.timerId = setTimeout(() => {          
-        this.audioi2= new Audio('assets/auordenes/LaPalEs.m4a');
-        this.audioi2.load();
-        this.audioi2.play().catch(function() {
-          //console.log("printeado")
-      });
-
 
         clearTimeout(this.timerId);  
         this.timerId =setTimeout(() => {          
@@ -237,8 +229,8 @@ export class Pregunta1Page implements OnInit {
     
           this.icdis = false;
           
-        }, 2000);  
-      }, t2);   
+        }, t2);  
+        
     }, t); 
   
 

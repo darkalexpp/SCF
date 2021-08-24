@@ -1,0 +1,12 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>pregunta21</ion-title>
+  </ion-toolbar>
+</ion-header>
+<app-color-selector (newSelectedColor)="selectColor($event)"></app-color-selector>
+
+<ion-content scrollY="false">
+  
+    <canvas #imageCanvas style="display: flex;" id="canvas" (touchstart)="startDrawing($event)" (touchmove)="moved($event)" [width]="ancho" [height]="alto"></canvas>
+    
+</ion-content>

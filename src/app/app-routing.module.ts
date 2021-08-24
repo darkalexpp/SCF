@@ -26,7 +26,15 @@ const routes: Routes = [
   {
     path: 'configuraciones',
     loadChildren: () => import('./configuraciones/configuraciones.module').then( m => m.ConfiguracionesPageModule)
+  },  {
+    path: 'pregunta12',
+    loadChildren: () => import('./pregunta12/pregunta12.module').then( m => m.Pregunta12PageModule)
   },
+  {
+    path: 'pregunta21',
+    loadChildren: () => import('./pregunta21/pregunta21.module').then( m => m.Pregunta21PageModule)
+  },
+
 
 ];
 
