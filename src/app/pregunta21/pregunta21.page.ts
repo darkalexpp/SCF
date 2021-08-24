@@ -1,5 +1,8 @@
 import { Component, OnInit, ViewChildren,QueryList } from '@angular/core';
 import { Platform } from '@ionic/angular';
+import { Router } from '@angular/router';
+
+import { preferencias } from '../clases/preferencias';
 
 @Component({
   selector: 'app-pregunta21',
@@ -25,23 +28,62 @@ export class Pregunta21Page implements OnInit {
   // Color Stuff
     selectedColor = '#9e2956';
   
-    colors = [ '#9e2956', '#c2281d', '#de722f', '#edbf4c', '#5db37e', '#459cde', '#4250ad', '#802fa3' ];
+    colors = ['#ffffff',  '#9e2956', '#c2281d', '#de722f', '#edbf4c', '#5db37e', '#459cde', '#4250ad', '#802fa3' ];
   
     //Preguntas
   
-    //preguntas=['Pregunta 1','Pregunta 2','Pregunta 3','Prgeunta 4','Pregunta 5','Pregunta 6','Pregunta 7'];
-    constructor(private platform: Platform) { }
+
+    drawing:boolean = false;
+    tamLinea:number=4;
   
+    txtorden: string= "Dibuja palabras que inicien con el sonido que te voy a decir";
+    txtSize=preferencias.txtsize;
+    audio;
+    acActual:number=1;
+
+    constructor(private platform: Platform, private router: Router) { }
+
 
   ngOnInit() {
+    this.audio = new Audio('assets/auordenes/fonemica21.m4a'); //Orden inicial alternativo
+    this.audio.load();
+    this.audio.play();
     this.setTam();
   }
 
   selectColor(color) {
+    console.log(color);
     this.selectedColor = color;
+  }
+  clickOrden(){
+    this.audio.pause();
+    if (this.acActual==2)
+    this.audio = new Audio('assets/auordenes/fonemica22.m4a'); //Orden inicial alternativo
+    else
+    this.audio = new Audio('assets/auordenes/fonemica21.m4a'); //Orden inicial alternativo
+    this.audio.load();
+    this.audio.play();
+  }
+  siguientePregunta(){ //cambia a la nueva pregunta
+    if(this.acActual==2)    {
+    this.router.navigate(['/home']);    }
+    else{   
+      this.acActual++;
+      this.txtorden= "Dibuja palabras que terminen con el sonido que te voy a decir";
+      this.clearCanvas();
+      this.audio = new Audio('assets/auordenes/fonemica22.m4a'); //Orden inicial alternativo
+      this.audio.load();
+      this.audio.play();
+    }}
+
+    clearCanvas(){
+      let ctx = this.canvasElement.getContext('2d');
+      ctx.clearRect(0, 0, this.canvasElement.width, this.canvasElement.height);
   }
 
   startDrawing(ev) {
+
+    this.drawing=true;
  
     //this.contentScrollActive=false;
    
@@ -57,11 +99,13 @@ export class Pregunta21Page implements OnInit {
     this.canvasElement = c1.nativeElement;
     var canvasPosition = this.canvasElement.getBoundingClientRect();
    
-    this.saveX = ev.touches[0].pageX - canvasPosition.x;
-    this.saveY = ev.touches[0].pageY - canvasPosition.y;
+    this.saveX = ev.pageX - canvasPosition.x;
+    this.saveY = ev.pageY - canvasPosition.y;
   }
    
   moved(ev) {
+    if (!this.drawing) 
+    return;
 
     var target = ev.srcElement;
     var idAttr = target.attributes.id;
@@ -75,12 +119,12 @@ export class Pregunta21Page implements OnInit {
     var canvasPosition = this.canvasElement.getBoundingClientRect();
    
     let ctx = this.canvasElement.getContext('2d');
-    let currentX = ev.touches[0].pageX - canvasPosition.x;
-    let currentY = ev.touches[0].pageY - canvasPosition.y;
+    let currentX = ev.pageX - canvasPosition.x;
+    let currentY = ev.pageY - canvasPosition.y;
    
     ctx.lineJoin = 'round';
     ctx.strokeStyle = this.selectedColor;
-    ctx.lineWidth = 5;
+    ctx.lineWidth = this.tamLinea;
    
     ctx.beginPath();
     ctx.moveTo(this.saveX, this.saveY);
@@ -95,6 +139,10 @@ export class Pregunta21Page implements OnInit {
     
     
   }  
+
+  endDraw(){
+    this.drawing = false;
+  }
 
   setTam()
   {

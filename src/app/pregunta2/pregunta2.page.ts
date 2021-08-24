@@ -132,7 +132,7 @@ clickAuResp(){
 
     if(this.numPr==this.act.arregloResp.length)
     {
-    this.router.navigate(['/home']);
+    this.router.navigate(['/pregunta21']);
     }
     else
     {   

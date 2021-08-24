@@ -1,12 +1,53 @@
 <ion-header>
-  <ion-toolbar>
-    <ion-title>pregunta21</ion-title>
+  <ion-toolbar color="primary">
+    <ion-title slot="start" [style.font-size.%]="txtSize+30">Conciencia Fonémica</ion-title>
+    <!--ion-title >{{acActual}}/{{NacTotal}}</ion-title-->
+    <ion-button slot="end" (click)="siguientePregunta()" expand="block"shape="round" [style.font-size.%]="txtSize">
+      {{acActual}}/2
+      <ion-icon name="arrow-forward-outline"></ion-icon>
+    </ion-button>
   </ion-toolbar>
 </ion-header>
-<app-color-selector (newSelectedColor)="selectColor($event)"></app-color-selector>
 
 <ion-content scrollY="false">
-  
-    <canvas #imageCanvas style="display: flex;" id="canvas" (touchstart)="startDrawing($event)" (touchmove)="moved($event)" [width]="ancho" [height]="alto"></canvas>
+  <ion-grid>
+    <ion-row>
+      <ion-col col-auto>
+          <table>
+              <tr>
+                <td>
+      <ion-label [style.font-size.%]="txtSize">{{txtorden}}</ion-label>
+    </td>
+    <td>
+      <ion-button (click)="clickOrden()" expand="block" fill="clear" shape="round">
+        <ion-icon name="volume-high"></ion-icon>
+      </ion-button>
+    </td>
+  </tr>
+</table>
+
+</ion-col>
+</ion-row>
+  </ion-grid>
+    <canvas #imageCanvas style="display: flex;" id="canvas" 
+    (touchstart)="startDrawing($event)" (mousedown)="startDrawing($event)" 
+    (touchmove)="moved($event)" (mousemove)="moved($event)"
+    (touchend)="endDraw()" (mouseup)="endDraw()"
+    [width]="ancho" [height]="alto" style="background-color:black; border-radius: 25px;"></canvas>
     
+    <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+
+      <ion-fab-button [style.--background]="selectedColor">
+      <ion-icon  name="color-palette"></ion-icon>
+      </ion-fab-button>
+
+      <ion-fab-list side="start">
+        <ion-fab-button *ngFor="let c of colors;let i = index" [style.--background]="c" (click)="selectColor(c)"></ion-fab-button>
+      </ion-fab-list>
+      <ion-fab-list side="top">
+        <ion-fab-button color="danger" (click)="clearCanvas()">
+          <ion-icon  name="trash"></ion-icon>
+          </ion-fab-button>
+              </ion-fab-list>
+      </ion-fab> 
 </ion-content>
