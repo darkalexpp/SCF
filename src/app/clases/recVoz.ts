@@ -16,16 +16,16 @@ export class recVoz{
           // alert('You do not have permission for speech recognition');
          }
        }, (err) => {
-         console.log(JSON.stringify(err));
+         //console.log(JSON.stringify(err));
        }
        );
      }
    
      requestPermission() {
        this.sr.requestPermission().then((data) => {
-        console.log(JSON.stringify(data));
+        //console.log(JSON.stringify(data));
        }, (err) => {
-        console.log(JSON.stringify(err));
+        //console.log(JSON.stringify(err));
        });
      }
    
@@ -34,7 +34,7 @@ export class recVoz{
      //    alert(speeches[0]);
          return speeches[0];
        }, (err) => {
-        console.log(JSON.stringify(err));
+        //console.log(JSON.stringify(err));
          return "error";
        });
      }    

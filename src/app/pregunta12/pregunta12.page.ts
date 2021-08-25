@@ -82,7 +82,7 @@ export class Pregunta12Page implements OnInit {
 
     let id = name.replace('card','');
     id = id.replace('img','');
-    console.log("id: "+id);
+    //console.log("id: "+id);
     var audiocard=this.imagenes[id].replace('img','aupalabra');
     audiocard=audiocard.replace('png','m4a');
     //console.log( audiocard); 
@@ -92,7 +92,7 @@ export class Pregunta12Page implements OnInit {
     this.audiop = new Audio(audiocard);
     this.audiop.load();
     this.audiop.play().catch(function() {
-      console.log("printeado")
+      //console.log("printeado")
   });;
     clearTimeout(this.timerId); 
     setTimeout(() => {  
@@ -193,7 +193,7 @@ export class Pregunta12Page implements OnInit {
  
  var or='assets/auordenes/silabica2.m4a';
   var t=1000;
-  var t2=4500;
+  var t2=6500;
   if(v==false)
   {
     //or='';
@@ -240,7 +240,8 @@ clickAuResp()
 {
 //this.audio.pause();
 this.stopAudio();
-
+this.clickOrden(false);
+/*
 clearTimeout(this.timerId);
 this.timerId = this.timerId = setTimeout(() => {          
   this.audioi2= new Audio('assets/auordenes/LaPalEs.m4a');
@@ -259,7 +260,7 @@ this.timerId = this.timerId = setTimeout(() => {
 
     this.icdis = false;
   }, 2000);  
-}, 1000);   
+}, 1000);   */
 }
 
 stopAudio()

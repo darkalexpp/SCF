@@ -97,7 +97,7 @@ export class actividad{
 
     siguiente() //cambia a la nueva pregunta-----------------------------ARREGLA
     {
-      console.log("NP:"+this.numPreg);
+      //console.log("NP:"+this.numPreg);
       this.numPreg++;
       //this.source="";
       var imagenes: string [];
@@ -193,23 +193,23 @@ export class actividad{
             {
               j = Math.floor(Math.random() * (this.recursos_rima[0].length));
             }
-            console.log("i: "+i);
-            console.log("j: "+j);
+            //console.log("i: "+i);
+            //console.log("j: "+j);
             for(let k = 0; k < this.recursos_rima.length; k++)
             {
               let temp = this.recursos_rima[k][i].toString();
 
-              console.log("k-i: "+this.recursos_rima[k][i]);
-              console.log("k-j: "+this.recursos_rima[k][j]);
+              //console.log("k-i: "+this.recursos_rima[k][i]);
+              //console.log("k-j: "+this.recursos_rima[k][j]);
               this.recursos_rima[k].splice(i,1,this.recursos_rima[k][j].toString());
               
               this.recursos_rima[k].splice(j,1,temp);
 
-              console.log("Nuevo k-i: "+this.recursos_rima[k][i]);
-              console.log("Nuevo k-j: "+this.recursos_rima[k][j]);
+              //console.log("Nuevo k-i: "+this.recursos_rima[k][i]);
+              //console.log("Nuevo k-j: "+this.recursos_rima[k][j]);
             }
 
-            console.log(this.recursos_rima);
+            //console.log(this.recursos_rima);
           }
         
       
@@ -223,7 +223,7 @@ export class actividad{
 
     obtenerFuentePreguntaRima()
     {
-      console.log('numPre: '+this.numPreg);
+      //console.log('numPre: '+this.numPreg);
       var f = this.recursos_rima[0][this.numPreg];
 
       var r = new recurso;

@@ -82,7 +82,7 @@ export class Pregunta1Page implements OnInit {
 
     let id = name.replace('card','');
     id = id.replace('img','');
-    console.log("id: "+id);
+    //console.log("id: "+id);
     var audiocard=this.imagenes[id].replace('img','aupalabra');
     audiocard=audiocard.replace('png','m4a');
     //console.log( audiocard); 
@@ -92,7 +92,7 @@ export class Pregunta1Page implements OnInit {
     this.audiop = new Audio(audiocard);
     this.audiop.load();
     this.audiop.play().catch(function() {
-      console.log("printeado")
+      //console.log("printeado")
   });;
     clearTimeout(this.timerId); 
     setTimeout(() => {  
@@ -242,8 +242,8 @@ export class Pregunta1Page implements OnInit {
     setTam()
     {
       this.platform.ready().then(() => {
-        console.log('Width: ' + this.platform.width());
-        console.log('Width: ' + this.platform.height());
+        //console.log('Width: ' + this.platform.width());
+        //console.log('Width: ' + this.platform.height());
 
         let b:number =this.platform.width();
         let a:number =this.platform.height();
@@ -263,7 +263,8 @@ export class Pregunta1Page implements OnInit {
     {
       //this.audio.pause();
       this.stopAudio();
-
+      this.clickOrden(false);
+/*
       clearTimeout(this.timerId);
       this.timerId = this.timerId = setTimeout(() => {          
         this.audioi2= new Audio('assets/auordenes/LaPalEs.m4a');
@@ -282,7 +283,7 @@ export class Pregunta1Page implements OnInit {
     
           this.icdis = false;
         }, 2000);  
-      }, 1000);   
+      }, 1000);  */ 
     }
 
     stopAudio()

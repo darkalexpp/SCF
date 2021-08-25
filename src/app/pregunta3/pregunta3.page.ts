@@ -86,7 +86,7 @@ export class Pregunta3Page implements OnInit {
 
     let id = name.replace('card','');
     id = id.replace('img','');
-    console.log("id: "+id);
+    //console.log("id: "+id);
     var audiocard=this.imagenes[id].replace('img','aupalabra');
     audiocard=audiocard.replace('png','m4a');
     //console.log( audiocard); 
@@ -262,7 +262,8 @@ clickAuResp()
 {
 //this.audio.pause();
 this.stopAudio();
-
+this.clickOrden(false);
+/*
 clearTimeout(this.timerId);
 this.timerId = this.timerId = setTimeout(() => {          
   this.audioi2= new Audio('assets/auordenes/LaPalEs.m4a');
@@ -281,7 +282,7 @@ this.timerId = this.timerId = setTimeout(() => {
 
     this.icdis = false;
   }, 2000);  
-}, 1000);   
+}, 1000); */  
 }
 
 stopAudio()

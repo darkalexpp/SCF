@@ -32,7 +32,7 @@ export class Pregunta21Page implements OnInit {
   
     //Preguntas
   
-
+    clean: boolean = true;
     drawing:boolean = false;
     tamLinea:number=4;
   
@@ -65,6 +65,8 @@ export class Pregunta21Page implements OnInit {
     this.audio.play();
   }
   siguientePregunta(){ //cambia a la nueva pregunta
+
+    this.audio.pause();
     if(this.acActual==2)    {
     this.router.navigate(['/home']);    }
     else{   
@@ -74,12 +76,18 @@ export class Pregunta21Page implements OnInit {
       this.audio = new Audio('assets/auordenes/fonemica22.m4a'); //Orden inicial alternativo
       this.audio.load();
       this.audio.play();
+      this.clean=true;
     }}
 
     clearCanvas(){
-      let ctx = this.canvasElement.getContext('2d');
-      ctx.clearRect(0, 0, this.canvasElement.width, this.canvasElement.height);
-  }
+      if(this.clean==false)
+      {
+        let ctx = this.canvasElement.getContext('2d');
+        ctx.clearRect(0, 0, this.canvasElement.width, this.canvasElement.height);
+        this.clean=true;
+      }
+
+    }
 
   startDrawing(ev, t) {
 
@@ -152,6 +160,7 @@ export class Pregunta21Page implements OnInit {
 
   endDraw(){
     this.drawing = false;
+    this.clean = false;
   }
 
   setTam()

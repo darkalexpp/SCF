@@ -40,7 +40,9 @@ constructor(private sr: SpeechRecognition, private router: Router) {
 ngOnInit() {
   this.audio = new Audio('assets/auordenes/fonemica.m4a'); //Orden inicial alternativo
   this.audio.load();
-  this.audio.play();
+  this.audio.play().catch(function() {
+    //console.log("printeado")
+});;;
   this.NacTotal=this.act.obtenerNumTotalPreguntas()+'';
     this.siguientePregunta();
 }
@@ -59,7 +61,9 @@ cardClick(ev){ //Evento de click que carga la imagen principal
 
     this.audio = new Audio(audiocard);
     this.audio.load();
-    this.audio.play();
+    this.audio.play().catch(function() {
+      //console.log("printeado")
+  });;;
     this.timerId=setTimeout(() => {  
     this.comprobarRespuesta(id);
     }, 2000);
@@ -77,11 +81,15 @@ clickmic(){ //Evento de click en mic
         if (this.recVoz.similarity(this.act.obtenerTextoPregunta(),txt) >= 0.5){
           this.audio = new Audio('assets/auordenes/LoHicMuyBien.m4a');
           this.audio.load();
-          this.audio.play();
+          this.audio.play().catch(function() {
+            //console.log("printeado")
+        });;;
         }else{
           this.audio = new Audio('assets/auordenes/IntDeNue.m4a');
           this.audio.load();
-          this.audio.play();
+          this.audio.play().catch(function() {
+            //console.log("printeado")
+        });;;
         }
       }, (err) => {
         alert(JSON.stringify(err));
@@ -99,7 +107,9 @@ clickOrden(){
   else
   this.audio = new Audio('assets/auordenes/fonemica2.m4a'); //Orden inicial alternativo
   this.audio.load();
-  this.audio.play();
+  this.audio.play().catch(function() {
+    //console.log("printeado")
+});;;
 }
 
 clickAuResp(){
@@ -107,7 +117,9 @@ clickAuResp(){
   this.audio = new Audio(this.act.obtenerRespAudioLetras());
  // let audio = new Audio('assets/audio/short-circuit.mp3'); // palabra respuesta
  this.audio.load();
- this.audio.play();
+ this.audio.play().catch(function() {
+  //console.log("printeado")
+});;;
 }
 
   comprobarRespuesta(id) //comprueba la respuesta correcta
@@ -116,27 +128,34 @@ clickAuResp(){
     if(id==this.act.obtenerRespuestaCorrecta()){  
       this.audio = new Audio('assets/auordenes/LoHicMuyBien.m4a');
       this.audio.load();
-      this.audio.play();
+      this.audio.play().catch(function() {
+        //console.log("printeado")
+    });;;
       this.enabledI = true;
     }
     else{
       this.audio = new Audio('assets/auordenes/IntDeNue.m4a');
       this.audio.load();
-      this.audio.play();
+      this.audio.play().catch(function() {
+        //console.log("printeado")
+    });;;
     }
 
   }    
 
   siguientePregunta(){ //cambia a la nueva pregunta
-    
-    clearTimeout(this.timerId);
+
 
     if(this.numPr==this.act.arregloResp.length)
     {
+      this.audio.pause();
+      clearTimeout(this.timerId);
     this.router.navigate(['/pregunta21']);
     }
     else
     {   
+
+      //clearTimeout(this.timerId);
       this.numPr++;
     var time: number = 0;
     //if (this.act.obtenerNumPregunta()==0)
@@ -147,16 +166,22 @@ clickAuResp(){
       this.acActual = ''+(this.act.obtenerNumPregunta()+2);
       this.imagenes = this.act.siguiente();
       //console.log(this.imagenes);
+      clearTimeout(this.timerId);
       this.timerId = setTimeout(() => {   
         this.audio.pause();       
         this.audio = new Audio('assets/auordenes/LaPalEs.m4a');
         this.audio.load();
-        this.audio.play();
+        this.audio.play().catch(function() {
+          //console.log("printeado")
+      });;;
+      clearTimeout(this.timerId);
     this.timerId=setTimeout(() => {     
       this.audio.pause();       
       this.audio= new Audio(this.act.obtenerRespAudioLetras());
       this.audio.load();
-      this.audio.play();
+      this.audio.play().catch(function() {
+        //console.log("printeado")
+    });;;
               }, 2350);   
   }, time); 
             }
@@ -180,17 +205,25 @@ clickAuResp(){
 
     }
     this.audio.load();
-    this.audio.play();
+    this.audio.play().catch(function() {
+      //console.log("printeado")
+  });;;
+  clearTimeout(this.timerId);
     this.timerId=setTimeout(() => {   
       this.audio.pause();       
       this.audio = new Audio('assets/auordenes/LaPalEs.m4a');
       this.audio.load();
-      this.audio.play();
+      this.audio.play().catch(function() {
+        //console.log("printeado")
+    });;;
+    clearTimeout(this.timerId);
   this.timerId= setTimeout(() => {       
     this.audio.pause();     
     this.audio= new Audio(this.act.obtenerRespAudioLetras());
     this.audio.load();
-    this.audio.play();
+    this.audio.play().catch(function() {
+      //console.log("printeado")
+  });;;
             }, 2200);   
 }, 7500); 
   }    
