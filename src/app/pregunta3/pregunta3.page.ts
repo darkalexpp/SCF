@@ -221,7 +221,7 @@ if(v==false)
 
   clearTimeout(this.timerId);  
   this.timerId =setTimeout(() => {          
-    this.audio= new Audio(this.act.obtenerFuentePreguntaRima().audioSilabas.toString());
+    this.audio= new Audio(this.act.obtenerFuentePreguntaRima().audioPalabra.toString());
     this.audio.load();
     this.audio.play().catch(function() {
       //console.log("printeado")
