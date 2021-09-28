@@ -1,0 +1,18 @@
+ Instalar git
+ Instalar github-desktop o github-cli: https://docs.github.com/es/desktop/installing-and-configuring-github-desktop/installing-and-authenticating-to-github-desktop/installing-github-desktop
+ 
+ Instalar nodejs (npm) : https://nodejs.org/en/download/
+ 
+ Instalar ionic: https://ionicframework.com/docs/intro/cli
+ Instalar angular cli : https://www.npmjs.com/package/@angular/cli
+ 
+ Instalar android studio : https://developer.android.com/studio
+ Instalar android SDK
+ Instalar gradle 7.0.0
+ 
+ Instalar Visual Studio Code : https://code.visualstudio.com/download
+
+
+Verificar que el sistema de archivos use UTF8
+
+https://github.com/darkalexpp/SCF
