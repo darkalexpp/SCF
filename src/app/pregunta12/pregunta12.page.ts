@@ -1,23 +1,20 @@
 import { Component, OnInit } from '@angular/core';
-
-
-
 import { preferencias } from 'src/app/clases/preferencias';
 
 import { actividad } from 'src/app/clases/actividad';
-import { Platform } from '@ionic/angular';
+
 import { Router } from '@angular/router';
 
-
 @Component({
-  selector: 'app-pregunta3',
-  templateUrl: './pregunta3.page.html',
-  styleUrls: ['./pregunta3.page.scss'],
+  selector: 'app-pregunta12',
+  templateUrl: './pregunta12.page.html',
+  styleUrls: ['./pregunta12.page.scss'],
 })
-export class Pregunta3Page implements OnInit {
+export class Pregunta12Page implements OnInit {
 
-  constructor(private platform: Platform, private router: Router) { }
-  arreglo_informacion=preferencias.raCI1;
+
+  constructor( private router: Router) { }
+  arreglo_informacion=preferencias.raCS1;
 
 
   imagenes: string [];
@@ -30,8 +27,7 @@ export class Pregunta3Page implements OnInit {
   NacTotal:string;
 
   source="";
-  alto="";
-  ancho="";
+
   audio;
   audioi1;
   audioi2;
@@ -61,7 +57,7 @@ export class Pregunta3Page implements OnInit {
   
     this.NacTotal=this.act.obtenerNumTotalPreguntas()+'';
     //this.setTam(); setear tamaño basado en los pixeles
-    this.act.establecerRecursosRimas(preferencias.raCI2);
+    this.act.establecerRecursosRimas(preferencias.raCS2);
     
     this.siguientePregunta();
 
@@ -96,7 +92,7 @@ export class Pregunta3Page implements OnInit {
     this.audiop = new Audio(audiocard);
     this.audiop.load();
     this.audiop.play().catch(function() {
-      console.log("printeado")
+      //console.log("printeado")
   });;
     clearTimeout(this.timerId); 
     setTimeout(() => {  
@@ -121,7 +117,7 @@ export class Pregunta3Page implements OnInit {
       {
         this.stopAudio();
         clearTimeout(this.timerId);
-        this.router.navigate(['/pregunta2']);
+        this.router.navigate(['/pregunta3']);
       }
       else
       {
@@ -195,9 +191,9 @@ export class Pregunta3Page implements OnInit {
   //this.audio.currentTime = 0;
   //this.audio = new Audio('');
  
- var or='assets/auordenes/intrasilabica.m4a';
+ var or='assets/auordenes/silabica2.m4a';
   var t=1000;
-  var t2=4500;
+  var t2=6500;
   if(v==false)
   {
     //or='';
@@ -238,25 +234,7 @@ if(v==false)
 }
 
 
-setTam()
-{
-this.platform.ready().then(() => {
-  console.log('Width: ' + this.platform.width());
-  console.log('Width: ' + this.platform.height());
 
-  let b:number =this.platform.width();
-  let a:number =this.platform.height();
-  //console.log('Height: ' + this.platform.height());
-  //this.alto = (""+this.platform.height());
-  a = a*0.5;
-  b = b*0.5;
-  this.alto=a+"";
-  this.ancho=b+"";
-
-    });
-
-
-}
 
 clickAuResp()
 {
@@ -282,7 +260,7 @@ this.timerId = this.timerId = setTimeout(() => {
 
     this.icdis = false;
   }, 2000);  
-}, 1000); */  
+}, 1000);   */
 }
 
 stopAudio()
@@ -301,5 +279,7 @@ this.audiop.pause();
 }
     
 }
+
+
 
 

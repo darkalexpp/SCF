@@ -97,7 +97,7 @@ export class actividad{
 
     siguiente() //cambia a la nueva pregunta-----------------------------ARREGLA
     {
-      console.log("NP:"+this.numPreg);
+      //console.log("NP:"+this.numPreg);
       this.numPreg++;
       //this.source="";
       var imagenes: string [];
@@ -157,8 +157,8 @@ export class actividad{
 /////
     insertarRimas()
     {
-      var arr = this.arreglo_preguntas;//arregla esto
-      console.log(this.recursos_rima);
+      //var arr = this.arreglo_preguntas;//arregla esto
+      //console.log(this.recursos_rima);
       for(let i=0;i<this.arreglo_preguntas.length;i++)
       {
 
@@ -169,24 +169,61 @@ export class actividad{
         r.audioSilabas = '/assets/ausilaba/'+this.recursos_rima[1][i]+'.m4a';
         r.audioLetras = '/assets/auletra/'+this.recursos_rima[1][i]+'.m4a';
 
-        arr[i][this.arregloResp[i]] = r;
+        this.arreglo_preguntas[i][this.arregloResp[i]] = r;
+        //this.arregloResp[i]= 
 
 
       }
 
-      console.log(arr);
+      //console.log(arr);
       
     }
+    shuffle() 
+    {
+      this.recursos_rima.sort(() => Math.random() - 0.5);
 
+
+
+          
+          //console.log("j: "+j);
+          for(let i = 0; i < this.recursos_rima[0].length; i++)
+          {
+            let j = Math.floor(Math.random() * (this.recursos_rima[0].length));
+            while(j==i)
+            {
+              j = Math.floor(Math.random() * (this.recursos_rima[0].length));
+            }
+            //console.log("i: "+i);
+            //console.log("j: "+j);
+            for(let k = 0; k < this.recursos_rima.length; k++)
+            {
+              let temp = this.recursos_rima[k][i].toString();
+
+              //console.log("k-i: "+this.recursos_rima[k][i]);
+              //console.log("k-j: "+this.recursos_rima[k][j]);
+              this.recursos_rima[k].splice(i,1,this.recursos_rima[k][j].toString());
+              
+              this.recursos_rima[k].splice(j,1,temp);
+
+              //console.log("Nuevo k-i: "+this.recursos_rima[k][i]);
+              //console.log("Nuevo k-j: "+this.recursos_rima[k][j]);
+            }
+
+            //console.log(this.recursos_rima);
+          }
+        
+      
+    }
     establecerRecursosRimas(arr: string [][])
     {
       this.recursos_rima = arr;
+      this.shuffle();
       this.insertarRimas();
     }
 
     obtenerFuentePreguntaRima()
     {
-      console.log('numPre: '+this.numPreg);
+      //console.log('numPre: '+this.numPreg);
       var f = this.recursos_rima[0][this.numPreg];
 
       var r = new recurso;
@@ -198,6 +235,11 @@ export class actividad{
 
       
       return r;
+    }
+
+    obtenerRespAudioSilabas()
+    {
+      return this.arreglo_preguntas[this.numPreg][this.obtenerRespuestaCorrecta()].audioSilabas;
     }
 
 

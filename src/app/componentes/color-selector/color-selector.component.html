@@ -1,0 +1,16 @@
+
+    <ion-list>
+      <ion-item>
+        <ion-col *ngFor="let color of colors" [style.background]="color" class="color-block" tappable (click)="colorChanged(color)"></ion-col>
+      </ion-item>
+      <!--
+      <ion-item>
+        <ion-row radio-group [(ngModel)]="selectedColor" ngDefaultControl>
+          <ion-col *ngFor="let color of colors" text-center>
+            <ion-radio [value]="color"></ion-radio>
+          </ion-col>
+        </ion-row>
+      </ion-item>
+      -->
+      
+    </ion-list>

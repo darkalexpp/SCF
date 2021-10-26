@@ -27,8 +27,10 @@ acActual:string;
 NacTotal:string;
 enablemic:boolean=true;
 txtorden:string="Adivina y pronuncia la palabra que se forma con los siguientes sonidos. ";
+txtSize=preferencias.txtsize;
 
 audio;
+timerId;
 numPr=0;
 
 constructor(private sr: SpeechRecognition, private router: Router) { 
@@ -36,10 +38,11 @@ constructor(private sr: SpeechRecognition, private router: Router) {
   this.act = new actividad(this.ra,preferencias.CFActividades,3);
 }
 ngOnInit() {
-
-  this.audio = new Audio('assets/auordenes/fonemica.m4a'); //Audio orden inicial
+  this.audio = new Audio('assets/auordenes/fonemica.m4a'); //Orden inicial alternativo
   this.audio.load();
-  this.audio.play();
+  this.audio.play().catch(function() {
+    //console.log("printeado")
+});;;
   this.NacTotal=this.act.obtenerNumTotalPreguntas()+'';
     this.siguientePregunta();
 }
@@ -47,35 +50,65 @@ ngOnInit() {
 
 cardClick(ev){ //Evento de click que carga la imagen principal
   this.audio.pause(); 
-  var id:string = ev.target.id;
-    id = id.replace('img','')
+  clearTimeout(this.timerId);
+    var n:string = ev.target.id;
+    let id:string = n.replace('card','');
+    id = id.replace('img','');
+    
     var audiocard=this.imagenes[id].replace('img','aupalabra');
     audiocard=audiocard.replace('png','m4a');
     console.log( audiocard); 
 
     this.audio = new Audio(audiocard);
     this.audio.load();
-    this.audio.play();
-    setTimeout(() => {  
+    this.audio.play().catch(function() {
+      //console.log("printeado")
+  });;;
+    this.timerId=setTimeout(() => {  
     this.comprobarRespuesta(id);
-    }, 1800);
-}pregunta2
+    }, 2000);
+}
 
 clickmic(){ //Evento de click en mic
 
   this.audio.pause();
-  var txt = this.recVoz.startListening();
-  alert("dice: "+txt);
-  alert("coindicencia de: "+this.recVoz.similarity(this.act.obtenerTextoPregunta(),txt))
-  if (this.recVoz.similarity(this.act.obtenerTextoPregunta(),txt) >= 0.5){
-    this.audio = new Audio('assets/auordenes/LoHicMuyBien.m4a');
+  clearTimeout(this.timerId);
+   
+    this.audio.pause();       
+    //this.audio= new Audio(this.act.obtenerRespAudioLetras());
+    this.audio = new Audio('assets/auordenes/LaPalEs.m4a');
     this.audio.load();
-    this.audio.play();
-  }else{
-    this.audio = new Audio('assets/auordenes/IntDeNue.m4a');
-    this.audio.load();
-    this.audio.play();
-  }
+    this.audio.play().catch(function() {
+      //console.log("printeado")
+  });;;
+  this.timerId = setTimeout(() => {
+
+  var txt;
+  // var txt =  this.recVoz.startListening();
+  this.sr.startListening().subscribe((speeches) => {
+        txt = speeches[0];
+        console.log("dice: "+txt);
+        console.log("coincidencia de: "+this.recVoz.similarity(this.act.obtenerTextoPregunta(),txt))
+        if (this.recVoz.similarity(this.act.obtenerTextoPregunta(),txt) >= 0.5){
+          this.audio = new Audio('assets/auordenes/LoHicMuyBien.m4a');
+          this.audio.load();
+          this.audio.play().catch(function() {
+            //console.log("printeado")
+        });;;
+        }else{
+          this.audio = new Audio('assets/auordenes/IntDeNue.m4a');
+          this.audio.load();
+          this.audio.play().catch(function() {
+            //console.log("printeado")
+        });;;
+        }
+      }, (err) => {
+        alert(JSON.stringify(err));
+       // return "error";
+      });
+
+    }, 2300); 
+
 }
 
 clickOrden(){
@@ -85,7 +118,18 @@ clickOrden(){
   else
   this.audio = new Audio('assets/auordenes/fonemica2.m4a'); //Orden inicial alternativo
   this.audio.load();
-  this.audio.play();
+  this.audio.play().catch(function() {
+    //console.log("printeado")
+});;;
+clearTimeout(this.timerId);
+    this.timerId=setTimeout(() => {   
+      this.audio.pause();       
+      this.audio= new Audio(this.act.obtenerRespAudioLetras());
+      this.audio.load();
+      this.audio.play().catch(function() {
+        //console.log("printeado")
+    });;;
+}, 7500); 
 }
 
 clickAuResp(){
@@ -93,7 +137,9 @@ clickAuResp(){
   this.audio = new Audio(this.act.obtenerRespAudioLetras());
  // let audio = new Audio('assets/audio/short-circuit.mp3'); // palabra respuesta
  this.audio.load();
- this.audio.play();
+ this.audio.play().catch(function() {
+  //console.log("printeado")
+});;;
 }
 
   comprobarRespuesta(id) //comprueba la respuesta correcta
@@ -102,52 +148,60 @@ clickAuResp(){
     if(id==this.act.obtenerRespuestaCorrecta()){  
       this.audio = new Audio('assets/auordenes/LoHicMuyBien.m4a');
       this.audio.load();
-      this.audio.play();
-      alert("Muy bien.");   
+      this.audio.play().catch(function() {
+        //console.log("printeado")
+    });;;
       this.enabledI = true;
     }
     else{
       this.audio = new Audio('assets/auordenes/IntDeNue.m4a');
       this.audio.load();
-      this.audio.play();
-      alert("Inténtalo de nuevo.")
+      this.audio.play().catch(function() {
+        //console.log("printeado")
+    });;;
     }
 
   }    
 
   siguientePregunta(){ //cambia a la nueva pregunta
-    
+
+
     if(this.numPr==this.act.arregloResp.length)
     {
-    this.router.navigate(['/pregunta3']);
+      this.audio.pause();
+      clearTimeout(this.timerId);
+    this.router.navigate(['/pregunta21']);
     }
     else
     {   
+
+      //clearTimeout(this.timerId);
       this.numPr++;
     var time: number = 0;
-    if (this.act.obtenerNumPregunta()==0)
-    time=6500;
+    //if (this.act.obtenerNumPregunta()==0)
+    if (this.numPr==1)
+    time=7000;
     else time=0;
       this.source="";
       this.acActual = ''+(this.act.obtenerNumPregunta()+2);
       this.imagenes = this.act.siguiente();
       //console.log(this.imagenes);
-      setTimeout(() => {   
+      clearTimeout(this.timerId);
+      this.timerId = setTimeout(() => {   
         this.audio.pause();       
-        this.audio = new Audio('assets/auordenes/LaPalEs.m4a');
+        this.audio= new Audio(this.act.obtenerRespAudioLetras());
+        //this.audio = new Audio('assets/auordenes/LaPalEs.m4a');
         this.audio.load();
-        this.audio.play();
-    setTimeout(() => {          
-      this.audio= new Audio(this.act.obtenerRespAudioLetras());
-      this.audio.load();
-      this.audio.play();
-              }, 2000);   
+        this.audio.play().catch(function() {
+          //console.log("printeado")
+      });;;
   }, time); 
             }
     }
 
   skip(ev){
     this.audio.pause();
+    clearTimeout(this.timerId);
     if(ev.detail.checked){
       this.txtorden="Adivina y pronuncia la palabra que se forma con los siguientes sonidos. ";
       this.audio = new Audio('assets/auordenes/fonemica.m4a'); //Orden inicial alternativo
@@ -163,7 +217,18 @@ clickAuResp(){
 
     }
     this.audio.load();
-    this.audio.play();
+    this.audio.play().catch(function() {
+      //console.log("printeado")
+  });;;
+  clearTimeout(this.timerId);
+    this.timerId=setTimeout(() => {   
+      this.audio.pause();       
+      this.audio= new Audio(this.act.obtenerRespAudioLetras());
+      this.audio.load();
+      this.audio.play().catch(function() {
+        //console.log("printeado")
+    });;;
+}, 7500); 
   }    
 }
 

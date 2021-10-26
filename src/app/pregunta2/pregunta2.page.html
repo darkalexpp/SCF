@@ -1,21 +1,22 @@
 <ion-header>
   <ion-toolbar color="primary">
-    <ion-title slot="start">Conciencia Fonémica</ion-title>
-    <ion-title >{{acActual}}/{{NacTotal}}</ion-title>
-    <ion-button color="secondary" slot="end" (click)="siguientePregunta()" expand="block" shape="round">
+    <ion-title slot="start" [style.font-size.%]="txtSize+30">Conciencia Fonémica</ion-title>
+    <!--ion-title >{{acActual}}/{{NacTotal}}</ion-title-->
+    <ion-button slot="end" (click)="siguientePregunta()" expand="block"shape="round" [style.font-size.%]="txtSize">
+      {{acActual}}/{{NacTotal}}
       <ion-icon name="arrow-forward-outline"></ion-icon>
     </ion-button>
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
-    <ion-item>
+<ion-content scrollY="false">
+  <ion-grid style="height: 100%; display: flex; flex-flow: column;">
       <ion-row>
         <ion-col col-auto>
             <table>
                 <tr>
                   <td>
-        <ion-label style="font-size: 50%;">{{txtorden}}</ion-label>
+        <ion-label [style.font-size.%]="txtSize">{{txtorden}}</ion-label>
       </td>
       <td>
         <ion-button (click)="clickOrden()" expand="block" fill="clear" shape="round">
@@ -24,58 +25,50 @@
       </td>
     </tr>
 </table>
+
 </ion-col>
 </ion-row>
-    </ion-item>
-
-    <ion-item>
       <ion-row>
         <ion-col col-auto>
+          <ion-item>
             <table>
                 <tr>
                   <td>
-        <ion-label>La palabra es: </ion-label>
+        <ion-label [style.font-size.%]="txtSize">La palabra es: </ion-label>
       </td>
       <td>
         <ion-button (click)="clickAuResp()" expand="block" fill="clear" shape="round">
-          <ion-icon name="volume-high"></ion-icon>
+          <ion-icon color="secondary" name="volume-high"></ion-icon>
         </ion-button>
       </td>
     </tr>
 </table>
+<ion-toggle color="secondary" slot="end" (ionChange)="skip($event)" mode="ios" checked="true" color="secondary"></ion-toggle>
+</ion-item>
 </ion-col>
 </ion-row>
-<ion-toggle color="secondary" slot="end" (ionChange)="skip($event)" mode="ios" checked="true" color="secondary"></ion-toggle>
-    </ion-item>
 
-    <ion-item>
-      <ion-grid>
 
-        <ion-row *ngIf="enabledM">
+        <ion-row *ngIf="enabledM" style="flex-grow: 1;">
           <ion-col col-auto>
-          <ion-card style="display: flex; align-items: center;justify-content: center;" button (click)="clickmic()" expand="block" fill="clear" shape="round">
-          <img style="display: flex; align-items: center;justify-content: center;" src="/assets/icon/mic.png" >
+          <ion-card style=" align-items: center; display: flex;" button (click)="clickmic()" expand="block" fill="clear" shape="round">
+          <img style="display: flex; align-items: center;justify-content: center; aspect-ratio: 1/1; " src="/assets/icon/mic.png">
+         
             </ion-card>
           </ion-col>            
         </ion-row>
-      </ion-grid>    
-    </ion-item>   
-  </ion-content>
 
-<ion-footer>
-    <ion-item>
-      <ion-grid>  
-        <ion-row *ngIf="enabledI">
-          <ion-col col-auto *ngFor="let imagen of imagenes;let i = index">
-            <ion-card button (click)="cardClick($event)" id ="card{{i}}" class="animate__animated animate__heartBeat">
-              <img style="display: flex; align-items: center;justify-content: center;" id="img{{i}}" src="{{imagen}}" >            </ion-card>
+        <ion-row *ngIf="enabledI" style="flex-grow: 1;">
+          <ion-col col-auto *ngFor="let imagen of imagenes;let i = index" style="display: flex;">
+            <ion-card style="aspect-ratio: 1/1; align-items: center; display: flex;" button (click)="cardClick($event)" id ="card{{i}}" class="animate__animated animate__heartBeat"> 
+              <ion-img style="aspect-ratio: 1/1; background-color: white; border-radius: 20%;" id="img{{i}}" src="{{imagen}}"></ion-img>         
+           </ion-card>  
           </ion-col>
         </ion-row>
       </ion-grid>    
-    </ion-item>
-</ion-footer>
+  </ion-content>
   <!--
-      <ion-label>Prgeunta</ion-label>
+      <ion-label>Prgeunta</ion-label>  height: 100%; display: flex; flex-flow: column; justify-content: center
   -->
    
      

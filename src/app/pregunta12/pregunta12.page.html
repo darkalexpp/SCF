@@ -1,6 +1,6 @@
 <ion-header>
   <ion-toolbar color="primary">
-    <ion-title slot="start" [style.font-size.%]="txtSize+30">Conciencia Intrasilábica</ion-title>
+    <ion-title slot="start" [style.font-size.%]="txtSize+30">Conciencia Silábica</ion-title>
     <!--ion-title >{{acActual}}/{{NacTotal}}</ion-title-->
     <ion-button slot="end" (click)="siguientePregunta()" expand="block"shape="round" [style.font-size.%]="txtSize">
       {{acActual}}/{{NacTotal}}
@@ -18,7 +18,7 @@
           <table>
             <tr>
               <td>
-                 <ion-label  [style.font-size.%]="txtSize">Selecciona la imagen que rima con la palabra modelo.</ion-label>
+                 <ion-label  [style.font-size.%]="txtSize">Selecciona la imagen que inicia con la misma sílaba de la palabra modelo.</ion-label>
               </td>
               <td>
                 
@@ -116,21 +116,4 @@
      
     
   
-  </ion-content><!---
-  <ion-footer>
-    <ion-item>
-      <ion-grid>
-  
-      
-        
-        <ion-row>
-          <ion-col size="4" *ngFor="let imagen of imagenes;let i = index">
-            <ion-card [disabled]="icdis" button (click)="cardClick($event)" id ="card{{i}}" class="animate__animated animate__heartBeat" style="display: flex; align-items: center;justify-content: center;">
-              <img style="display: flex; align-items: center;justify-content: center;" id="img{{i}}" src="{{imagen}}"> --><!--[width]="ancho" [height]="alto"-->
-           
-           <!--- </ion-card>
-          </ion-col>
-        </ion-row>
-      </ion-grid>    
-    </ion-item>
-  </ion-footer>-->
+  </ion-content>
